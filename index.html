@@ -155,6 +155,47 @@
     background-color: #050505 !important; /* A deep, solid black */
     opacity: 1 !important;
 }
+/* Volumetric 3D Icon Aesthetic */
+.icon-container {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* The larger, volumetric background glow/shadow */
+.icon-background {
+    position: absolute;
+    font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 200, 'opsz' 48;
+    filter: blur(25px) opacity(0.5); /* Boosted blur and opacity for depth */
+    transform: scale(2.2); /* Make it much bigger */
+    z-index: -1;
+}
+
+/* The smaller, sharp, glossy focal icon */
+.icon-focal {
+    position: absolute;
+    font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 100, 'opsz' 40;
+    /* Simulate a glossy, rounded plastic surface */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: 
+        drop-shadow(0 2px 3px rgba(0,0,0,0.4)) /* Base Shadow */
+        drop-shadow(0 1px 1px rgba(255,255,255,0.2) inset); /* Glossy rim light hint */
+    z-index: 2;
+}
+
+/* Specific color definitions to match the glow aesthetic */
+.icon-purple { color: #8e24aa; } /* Volumetric deep purple */
+.icon-blue { color: #1e88e5; }   /* Volumetric deep blue */
+.icon-green { color: #43a047; }  /* Volumetric deep green */
+
+/* Standard Material Symbols config (for fallback/base styling) */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
     </style>
 </head>
 <body class="bg-surface text-white font-body selection:bg-primary-container">
@@ -169,6 +210,8 @@
     <div class="hidden md:flex items-center space-x-10 text-xs font-bold uppercase tracking-widest">
         <a class="hover:text-primary-container transition-colors" href="#problem">The Problem</a>
         <a class="hover:text-primary-container transition-colors" href="#engines">Solutions</a>
+                <a class="hover:text-primary-container transition-colors" href="#blog">Blogs</a>
+
                 <a class="hover:text-primary-container transition-colors" href="#contact">Contact</a>
 
 
@@ -348,53 +391,80 @@
         </div>
     </section>
 
-<section id="blog" class="py-32 bg-surface z-10 relative">
-        <div class="container mx-auto px-8 max-w-7xl">
-            <div class="flex justify-between items-end mb-16 border-b border-white/5 pb-8">
-                <h2 class="font-headline text-3xl font-bold uppercase tracking-tighter">Protocol Blog</h2>
-                <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-primary-container hover:text-white transition-colors">[ Explore All Posts ]</a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <article class="group cursor-pointer">
-                    <div class="mb-6 overflow-hidden aspect-[16/9] bg-surface-container border border-white/5">
-                        <div class="w-full h-full bg-gradient-to-br from-primary-container/20 to-surface group-hover:scale-110 transition-transform duration-700"></div>
-                    </div>
-                    <span class="text-[10px] text-gray-500 uppercase tracking-widest">April 2026 // Compliance</span>
-                    <h3 class="text-xl font-bold mt-2 group-hover:text-primary-container transition-colors">3 HIPAA Errors Every Medical Startup Makes</h3>
-                    <p class="text-gray-400 text-sm mt-4 leading-relaxed">Deep dive into misconfigurations in S3 bucket policies that lead to data exposure.</p>
-                </article>
-                
-                <article class="group cursor-pointer">
-                    <div class="mb-6 overflow-hidden aspect-[16/9] bg-surface-container border border-white/5">
-                        <div class="w-full h-full bg-gradient-to-br from-secondary/20 to-surface group-hover:scale-110 transition-transform duration-700"></div>
-                    </div>
-                    <span class="text-[10px] text-gray-500 uppercase tracking-widest">March 2026 // Security</span>
-                    <h3 class="text-xl font-bold mt-2 group-hover:text-primary-container transition-colors">The Future of Zero-Trust Architecture</h3>
-                    <p class="text-gray-400 text-sm mt-4 leading-relaxed">Moving beyond network perimeters to identity-centric object access.</p>
-                </article>
-
-                <article class="group cursor-pointer">
-                    <div class="mb-6 overflow-hidden aspect-[16/9] bg-surface-container border border-white/5">
-                        <div class="w-full h-full bg-gradient-to-br from-gray-500/20 to-surface group-hover:scale-110 transition-transform duration-700"></div>
-                    </div>
-                    <span class="text-[10px] text-gray-500 uppercase tracking-widest">March 2026 // Automation</span>
-                    <h3 class="text-xl font-bold mt-2 group-hover:text-primary-container transition-colors">Scaling Engineering for FERPA Compliance</h3>
-                    <p class="text-gray-400 text-sm mt-4 leading-relaxed">Baking regulatory requirements into your CI/CD pipeline without slowing down velocity.</p>
-                </article>
-            </div>
+<section id="blog" class="py-32 bg-surface z-10 relative overflow-hidden">
+    <div class="container mx-auto px-8 max-w-7xl">
+        <div class="flex justify-between items-end mb-16 border-b border-white/5 pb-8 reveal">
+            <h2 class="font-headline text-3xl font-bold uppercase tracking-tighter text-white">Additional Resources</h2>
         </div>
-    </section>
-       <section id="contact" class="py-40 bg-surface relative overflow-hidden">
-    <div class="container mx-auto px-8 max-w-4xl text-center reveal">
-        <div class="glass-panel p-16 border border-white/10 relative">
-            <h2 class="font-headline text-4xl font-bold mb-6">Ready to Secure Your Infrastructure?</h2>
-            <p class="text-gray-400 mb-12">Stop worrying about audits. Let’s look at your technical setup and find the data liability gaps.</p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
             
-            <form id="contact-form" class="flex flex-col md:flex-row gap-0">
-                <input id="user-email" name="email" class="flex-grow bg-white/5 border-none p-5 text-sm font-mono focus:ring-2 focus:ring-primary-container outline-none" placeholder="CORPORATE EMAIL ADDRESS" type="email" required/>
-                <button type="submit" class="bg-primary-container px-10 py-5 font-bold uppercase tracking-widest text-xs hover:brightness-125 transition-all">Contact Us</button>
+            <article onclick="window.location.href='blog.html?id=0'" class="group cursor-pointer reveal">
+                <div class="mb-6 overflow-hidden aspect-[16/9] bg-surface-container border border-white/5 relative">
+                    <div class="w-full h-full bg-gradient-to-br from-primary-container/20 to-surface group-hover:scale-110 transition-transform duration-700"></div>
+                    
+                    <div class="icon-container flex items-center justify-center">
+                        <span class="material-symbols-outlined icon-background text-[220px] icon-purple">troubleshoot</span>
+                        <span class="material-symbols-outlined icon-focal text-[64px]">troubleshoot</span>
+                    </div>
+                </div>
+                <span class="text-[10px] text-gray-500 uppercase tracking-widest">April 2026 // Compliance</span>
+                <h3 class="text-xl font-bold mt-2 group-hover:text-primary-container transition-colors text-white">How to Audit Legacy Data for PII Without Crashing Production</h3>
+                <p class="text-gray-400 text-sm mt-4 leading-relaxed">Learn why standard PII tools crash at scale and how streaming inspection audits 8TB legacy monoliths.</p>
+            </article>
+            
+            <article onclick="window.location.href='blog.html?id=1'" class="group cursor-pointer reveal">
+                <div class="mb-6 overflow-hidden aspect-[16/9] bg-surface-container border border-white/5 relative">
+                    <div class="w-full h-full bg-gradient-to-br from-secondary/20 to-surface group-hover:scale-110 transition-transform duration-700"></div>
+                    
+                    <div class="icon-container flex items-center justify-center">
+                        <span class="material-symbols-outlined icon-background text-[220px] icon-blue">visibility_off</span>
+                        <span class="material-symbols-outlined icon-focal text-[64px]">visibility_off</span>
+                    </div>
+                </div>
+                <span class="text-[10px] text-gray-500 uppercase tracking-widest">March 2026 // Security</span>
+                <h3 class="text-xl font-bold mt-2 group-hover:text-primary-container transition-colors text-white">Why Your LLM Strategy is a Data Leak Waiting to Happen</h3>
+                <p class="text-gray-400 text-sm mt-4 leading-relaxed">Stop leaking data to third-party APIs by implementing a local gateway that masks PII.</p>
+            </article>
+
+            <article onclick="window.location.href='blog.html?id=2'" class="group cursor-pointer reveal">
+                <div class="mb-6 overflow-hidden aspect-[16/9] bg-surface-container border border-white/5 relative">
+                    <div class="w-full h-full bg-gradient-to-br from-gray-500/20 to-surface group-hover:scale-110 transition-transform duration-700"></div>
+                    
+                    <div class="icon-container flex items-center justify-center">
+                        <span class="material-symbols-outlined icon-background text-[220px] icon-green">cloud_sync</span>
+                        <span class="material-symbols-outlined icon-focal text-[64px]">cloud_sync</span>
+                    </div>
+                </div>
+                <span class="text-[10px] text-gray-500 uppercase tracking-widest">March 2026 // Automation</span>
+                <h3 class="text-xl font-bold mt-2 group-hover:text-primary-container transition-colors text-white">Rescuing 10TB Migrations from Connection Timeouts</h3>
+                <p class="text-gray-400 text-sm mt-4 leading-relaxed">Eliminate migration failures with Air Bridge logic that uses checksum-verified transfers.</p>
+            </article>
+        </div>
+    </div>
+</section>
+<section id="contact" class="py-20 md:py-40 bg-surface relative overflow-hidden">
+    <div class="container mx-auto px-4 md:px-8 max-w-4xl text-center reveal">
+        <div class="glass-panel p-8 md:p-16 border border-white/10 relative">
+            
+            <h2 class="font-headline text-3xl md:text-4xl font-bold mb-6 leading-tight">
+                Ready to Secure Your <br class="hidden md:block"/> Infrastructure?
+            </h2>
+            
+            <p class="text-gray-400 mb-10 text-sm md:text-base leading-relaxed">
+                Stop worrying about audits. Let’s look at your technical setup and find the data liability gaps.
+            </p>
+            
+            <form id="contact-form" class="flex flex-col md:flex-row gap-2 md:gap-0 max-w-md mx-auto">
+                <input id="user-email" name="email" 
+                    class="w-full flex-grow bg-white/5 border border-white/10 md:border-none p-5 text-xs md:text-sm font-mono focus:ring-2 focus:ring-primary-container outline-none" 
+                    placeholder="CORPORATE EMAIL ADDRESS" type="email" required/>
+                
+            <button type="submit" class="bg-primary-container px-10 py-5 font-bold uppercase tracking-widest text-xs hover:brightness-125 transition-all whitespace-nowrap">Contact Us</button>
             </form>
-            <p class="mt-6 text-[10px] text-gray-500 uppercase tracking-[0.3em]">Direct Response // No Sales Reps</p>
+
+            <p class="mt-8 text-[9px] md:text-[10px] text-gray-500 uppercase tracking-[0.3em] leading-loose">
+                Direct Response // No Sales Reps
+            </p>
         </div>
     </div>
 </section>
