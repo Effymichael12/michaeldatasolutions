@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;700&family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script id="tailwind-config">
+          tailwind.config = {
+            darkMode: "class",
+            theme: {
+              extend: {
+                colors: {
+                        "primary": "#7f00ff",
+                        "surface": "#050505",
+                },
+                fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "mono": ["JetBrains Mono"]
+                }
+              },
+            },
+          }
+    </script>
+    <style>
+        body { background-color: #050505; color: #e5e5e5; }
+        .blog-content h2 { 
+            font-family: 'Space Grotesk'; 
+            font-weight: 700; 
+            font-size: 1.5rem; 
+            color: #7f00ff; 
+            margin-top: 2.5rem; 
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+        .blog-content p { margin-bottom: 1.5rem; line-height: 1.8; color: #a3a3a3; }
+        .blog-content strong { color: #ffffff; }
+        
+        /* The "Scanline" Hero Effect */
+        .hero-overlay {
+            background: linear-gradient(rgba(127, 0, 255, 0.05) 1px, transparent 1px);
+            background-size: 100% 3px;
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary selection:text-white">
+
+    <nav class="fixed top-0 w-full z-50 px-8 py-6 flex justify-between items-center bg-black/80 backdrop-blur-md border-b border-white/5">
+        <div class="font-headline font-bold text-lg tracking-tighter">MICHAEL DATA SOLUTIONS</div>
+        <div class="hidden md:flex gap-8 text-[10px] font-bold uppercase tracking-widest opacity-60">
+            <a href="index.html" class="hover:opacity-100 transition-opacity">Home</a>
+            <a href="index.html#blog" class="hover:opacity-100 transition-opacity">Blogs</a>
+            <a href="index.html#contact" class="hover:opacity-100 transition-opacity">Contact Us</a>
+        </div>
+    </nav>
+
+    <header class="relative pt-40 pb-20 px-8 border-b border-white/5 overflow-hidden">
+        <div class="hero-overlay absolute inset-0 pointer-events-none"></div>
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="flex items-center gap-4 mb-8">
+                <span class="h-[1px] w-12 bg-primary"></span>
+                <span class="font-mono text-primary text-[10px] uppercase tracking-[0.4em]" id="tag">System_Analysis // 001</span>
+            </div>
+            <h1 class="font-headline text-5xl md:text-7xl font-bold leading-[0.9] tracking-tighter uppercase mb-12" id="blog-title">
+                Loading Protocol...
+            </h1>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 font-mono text-[10px] uppercase tracking-widest border-t border-white/10 pt-8 opacity-50">
+                <div>
+                    <div class="text-white/40 mb-2">Author_Signature</div>
+                    <div id="author" class="text-white">---</div>
+                </div>
+                <div>
+                    <div class="text-white/40 mb-2">Read_Time</div>
+                    <div id="read-time" class="text-white">---</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-3xl mx-auto px-8 py-20">
+        <div id="blog-body" class="blog-content text-lg">
+            </div>
+        
+        <div class="mt-20 p-10 bg-white/5 border border-primary/20 text-center">
+            <p class="font-mono text-[10px] text-primary uppercase tracking-widest mb-4">SETUP A MEETING</p>
+            <h3 class="font-headline text-2xl font-bold mb-6">Ready to scale your compliance?</h3>
+            <a  href="https://calendar.app.google/XSphPGqrE8v8MSAW7" class="bg-primary px-8 py-4 font-bold uppercase text-xs tracking-widest hover:brightness-125 transition-all">
+                BOOK A QUICK MEETING
+            </a>
+        </div>
+    </main>
+
+    <script>
+        // Simple Markdown-ish parser for the body
+        function parseMarkdown(text) {
+            return text
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/\*\*(.*)\*\*/gim, '<strong>$1</strong>')
+                .replace(/\n\n/gim, '</p><p>')
+                .replace(/\[(.*?)\]\((.*?)\)/gim, '<a href="$2" class="text-primary underline font-bold">$1</a>');
+        }
+
+        async function loadBlog() {
+            try {
+                // 1. Get the ID from the URL (e.g., blog.html?id=0)
+                const params = new URLSearchParams(window.location.search);
+                const blogId = params.get('id') || 0;
+
+                // 2. Fetch the JSON file
+                const response = await fetch('blogs.json');
+                const blogs = await response.json();
+                
+                const post = blogs[blogId];
+
+                if (post) {
+                    // 3. Inject Content
+                    document.title = post.title;
+                    document.getElementById('blog-title').innerText = post.title;
+                    document.getElementById('author').innerText = post.metadata.author;
+                    document.getElementById('read-time').innerText = post.metadata.reading_time;
+                    document.getElementById('tag').innerText = `MDS BLOGS // 00${parseInt(blogId) + 1}`;
+                    
+                    // Wrap body in <p> tag first and then parse
+                    document.getElementById('blog-body').innerHTML = '<p>' + parseMarkdown(post.body) + '</p>';
+                }
+            } catch (error) {
+                console.error("Critical System Error: Blog not found", error);
+                document.getElementById('blog-body').innerHTML = "<p class='font-mono text-red-500'>[ERROR_404]: FAILED_TO_LOAD_PROTOCOL</p>";
+            }
+        }
+
+        window.onload = loadBlog;
+    </script>
+</body>
+</html>
