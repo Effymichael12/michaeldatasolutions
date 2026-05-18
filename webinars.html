@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>MDS Briefings | Enterprise AI & Data Compliance Seminars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary-container": "#7f00ff",
+                        "secondary": "#d5baff",
+                        "surface": "#0a0a0a",
+                        "surface-container": "#111111",
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .bg-deep-surface { background-color: #050505; }
+        .diag-grid { background-image: radial-gradient(#2a2a2a 1px, transparent 1px); background-size: 30px 30px; }
+        .hover-lift { position: relative; transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1); background-color: #0a0a0a; border: 1px solid rgba(255,255,255,0.05); }
+        .hover-lift:hover { transform: translateY(-5px); background-color: #0f0f0f; border-color: rgba(127, 0, 255, 0.4); }
+        
+        /* Glowing Corners Effect */
+        .corner { position: absolute; width: 12px; height: 12px; border: 2px solid transparent; opacity: 0; transition: all 0.4s ease; pointer-events: none; }
+        .t-l { top: 0; left: 0; border-top-color: #7f00ff; border-left-color: #7f00ff; }
+        .t-r { top: 0; right: 0; border-top-color: #7f00ff; border-right-color: #7f00ff; }
+        .b-l { bottom: 0; left: 0; border-bottom-color: #7f00ff; border-left-color: #7f00ff; }
+        .b-r { bottom: 0; right: 0; border-bottom-color: #7f00ff; border-right-color: #7f00ff; }
+        .group:hover .corner { opacity: 1; filter: drop-shadow(0 0 5px #7f00ff); }
+        .group:hover .t-l { transform: translate(-4px, -4px); }
+        .group:hover .t-r { transform: translate(4px, -4px); }
+        .group:hover .b-l { transform: translate(-4px, 4px); }
+        .group:hover .b-r { transform: translate(4px, 4px); }
+    </style>
+</head>
+<body class="bg-surface text-white font-body selection:bg-primary-container">
+
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 bg-black/80 backdrop-blur-lg border-b border-white/5 font-headline">
+    <div class="text-xl font-bold tracking-tighter uppercase"><a href="/">Michael Data Solutions</a></div>
+    <div class="hidden md:flex items-center space-x-10 text-xs font-bold uppercase tracking-widest">
+        <a class="hover:text-primary-container transition-colors" href="/">Home</a>
+        <a class="hover:text-primary-container transition-colors" href="#group-sessions">Regional Webinars</a>
+        <a class="hover:text-primary-container transition-colors" href="#private-briefing">Private Webinars</a>
+        <a href="#group-sessions" class="bg-primary-container text-white px-6 py-2 hover:scale-105 transition-transform">Free Webinars</a>
+    </div>
+</nav>
+
+<main class="pt-32">
+    <section class="relative py-20 px-6 text-center overflow-hidden">
+        <div class="absolute inset-0 diag-grid opacity-20"></div>
+        <div class="relative z-10 max-w-4xl mx-auto">
+            <span class="text-xs font-bold font-headline tracking-widest text-primary-container uppercase bg-primary-container/10 px-4 py-2 border border-primary-container/20">20-Minute Executive Webinars</span>
+            <h1 class="font-headline text-5xl md:text-7xl font-bold tracking-tighter mb-6 mt-6">
+                Learn How to Protect<br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-secondary">Company & Client Data</span>
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl leading-relaxed max-w-3xl mx-auto">
+                This brief, 20-minute session is designed for management. We skip the technical jargon to show you exactly how to protect your organization's sensitive files, keep customer data secure, and help your team use modern tools safely without the risk of accidental leaks.
+            </p>
+        </div>
+    </section>
+
+    <section id="group-sessions" class="py-24 bg-surface-container border-y border-white/5">
+        <div class="container mx-auto px-8 max-w-6xl">
+            <div class="mb-16 text-center">
+                <h2 class="font-headline text-4xl font-bold uppercase tracking-tighter mb-4">Upcoming Regional Webinars</h2>
+                <p class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">May | 18 | 2026 - June | 20 | 2026</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="group hover-lift p-8 relative flex flex-col justify-between">
+                    <div class="corner t-l"></div><div class="corner t-r"></div><div class="corner b-l"></div><div class="corner b-r"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-[10px] font-mono bg-white/5 px-2 py-1 text-gray-400 border border-white/10 uppercase font-bold tracking-wider">ZA Standard Time</span>
+                            <span class="material-symbols-outlined text-primary-container">shield_person</span>
+                        </div>
+                        <h3 class="font-headline text-2xl font-bold mb-2">Johannesburg Hub</h3>
+                        <p class="text-xs text-primary-container font-mono mb-4">> June 4th 2026 @ 10:00am</p>
+                        <p class="text-sm text-gray-400 mb-6">Data Protection Awareness and Simple Solutions To Combat Data Breaches</p>
+                    </div>
+                    <div>
+                        <button onclick="openZohoRegister('1077115153')" class="w-full text-center bg-primary-container/20 border border-primary-container/50 text-white font-headline font-bold uppercase tracking-widest text-xs py-3 hover:bg-primary-container transition-all cursor-pointer">
+                            Reserve Free Seat
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group hover-lift p-8 relative flex flex-col justify-between">
+                    <div class="corner t-l"></div><div class="corner t-r"></div><div class="corner b-l"></div><div class="corner b-r"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-[10px] font-mono bg-white/5 px-2 py-1 text-gray-400 border border-white/10 uppercase font-bold tracking-wider">Gulf Standard Time</span>
+                            <span class="material-symbols-outlined text-primary-container">encrypted</span>
+                        </div>
+                        <h3 class="font-headline text-2xl font-bold mb-2">Dubai Hub</h3>
+                        <p class="text-xs text-primary-container font-mono mb-4">> June 8th 2026 @ 10:00am</p>
+                        <p class="text-sm text-gray-400 mb-6">Data Protection Awareness and Simple Solutions To Combat Data Breaches </p>
+                    </div>
+                    <div>
+                        <button onclick="openZohoRegister('1051234417')" class="w-full text-center bg-primary-container/20 border border-primary-container/50 text-white font-headline font-bold uppercase tracking-widest text-xs py-3 hover:bg-primary-container transition-all cursor-pointer">
+                            Reserve Free Seat
+                        </button>
+                    </div>
+                </div>
+
+                <div class="group hover-lift p-8 relative flex flex-col justify-between">
+                    <div class="corner t-l"></div><div class="corner t-r"></div><div class="corner b-l"></div><div class="corner b-r"></div>
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span class="text-[10px] font-mono bg-white/5 px-2 py-1 text-gray-400 border border-white/10 uppercase font-bold tracking-wider">Eastern Standard Time</span>
+                            <span class="material-symbols-outlined text-primary-container">monitoring</span>
+                        </div>
+                        <h3 class="font-headline text-2xl font-bold mb-2">New York Hub</h3>
+                        <p class="text-xs text-primary-container font-mono mb-4">> June 11th 2026 @ 10:00am</p>
+                        <p class="text-sm text-gray-400 mb-6">Data Protection Awareness and Simple Solutions To Combat Data Breaches</p>
+                    </div>
+                    <div>
+                        <button onclick="openZohoRegister('1087737440')" class="w-full text-center bg-primary-container/20 border border-primary-container/50 text-white font-headline font-bold uppercase tracking-widest text-xs py-3 hover:bg-primary-container transition-all cursor-pointer">
+                            Reserve Free Seat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="private-briefing" class="py-24 bg-deep-surface">
+        <div class="container mx-auto px-8 max-w-4xl">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
+                <div class="md:col-span-3">
+                    <span class="text-xs font-mono text-primary-container uppercase tracking-widest font-bold block mb-2">> Private Sessions For Your Company</span>
+                    <h2 class="font-headline text-4xl font-bold uppercase tracking-tighter mb-6">Request an Individual Webinar / Seminar</h2>
+                    <div class="space-y-4 text-gray-300 text-sm leading-relaxed">
+                        <p>If your organization cannot attend our open regional sessions, we offer private webinars tailored to your specific industry guidelines and data security goals</p>
+                        <p>We coordinate these private sessions around your team’s schedule, providing an excellent opportunity to align your entire organization on modern data protection practices.</p>
+                    </div>
+                </div>
+                <div class="md:col-span-2 p-8 bg-surface-container border border-white/5 relative">
+                    <h4 class="font-headline text-lg font-bold mb-4 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary-container text-sm">lock_open</span> Private Request
+                    </h4>
+                    <p class="text-xs text-gray-400 mb-6 leading-relaxed">Private 20-minute Webinar / Seminar For Your Organization</p>
+                    <a href="https://calendar.app.google/XSphPGqrE8v8MSAW7" class="block w-full text-center bg-primary-container text-white font-headline font-bold uppercase tracking-widest text-xs py-3 hover:scale-105 transition-transform">
+                        Request Slot
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 bg-surface-container border-t border-white/5">
+        <div class="container mx-auto px-8 max-w-5xl">
+            <h3 class="font-headline text-2xl font-bold uppercase text-center mb-12 tracking-wide">The 20-Minute Webinar Agenda</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center font-mono text-xs">
+                <div class="p-4 border border-white/5 bg-black/40">
+                    <div class="text-primary-container font-bold mb-2">00 - 04 MIN</div>
+                    <div class="text-white font-bold mb-1">Consequences of Data Loss</div>
+                    <p class="text-[11px] text-gray-500 font-body">The reality behind a data breach and what follows.</p>
+                </div>
+                <div class="p-4 border border-white/5 bg-black/40">
+                    <div class="text-primary-container font-bold mb-2">04 - 10 MIN</div>
+                    <div class="text-white font-bold mb-1">Solutions Checklist</div>
+                    <p class="text-[11px] text-gray-500 font-body">High level guidlines to help keep your data safe with free checklist</p>
+                </div>
+                <div class="p-4 border border-white/5 bg-black/40">
+                    <div class="text-primary-container font-bold mb-2">10 - 16 MIN</div>
+                    <div class="text-white font-bold mb-1">Our Solutions</div>
+                    <p class="text-[11px] text-gray-500 font-body">Quick look into MDS products and they keep your data safe.</p>
+                </div>
+                <div class="p-4 border border-white/5 bg-black/40">
+                    <div class="text-primary-container font-bold mb-2">16 - 20 MIN</div>
+                    <div class="text-white font-bold mb-1">Resources & Tools</div>
+                    <p class="text-[11px] text-gray-500 font-body">Useful resources and tools to defend against data breaches</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="py-12 border-t border-white/5 text-center text-gray-600 text-xs uppercase tracking-widest">
+    &copy; 2026 Michael Data Solutions | info@michaeldatasolutions.com
+</footer>
+
+<script>
+    function openZohoRegister(webinarId) {
+        // Logistical Implementation Note: 
+        // Zoho allows form embeds via iframe scripts or via directly launching 
+        // their standalone script modules. 
+        // Replace the alerts below with your preferred Zoho modal initialization script.
+        
+        console.log("Initializing Zoho Webinar Registration Engine for ID: " + webinarId);
+        var zohoUrl = 'https://webinar.zoho.com/meeting/register?sessionId=' + webinarId;
+        window.open(zohoUrl, '_blank');
+        
+        // STANDARD ZOHO LINK EMBED PREPARATION OVERLAY ROUTINE:
+        // You can use standard Zoho code directly here:
+        // window.open('https://webinar.zoho.com/webinar/register?webinarId=' + webinarId, '_blank');
+            }
+</script>
+
+</body>
+</html>
