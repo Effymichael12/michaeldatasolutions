@@ -1,586 +1,558 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <meta property="og:type" content="website">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Michael Data Solutions | Custom Streamlit Dashboards & Private AI Tools</title>
+    <meta name="description" content="We build and manage live Streamlit dashboards and private internal AI tools for recovery, rehab, and data-driven organizations. No IT team needed.">
+    
+    <!-- Canonical Tag pointing to your clean HTTPS root -->
     <link rel="canonical" href="https://michaeldatasolutions.com/" />
-    <meta property="og:url" content="https://michaeldatasolutions.com/">
     <meta name="robots" content="index, follow">
-    <meta property="og:title" content="Michael Data Solutions | Securing Data">
-    <meta property="og:description" content="Secure tools designed to protect your sensitive data.">
-    <meta property="og:image" content="snapshot.png">
-    
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Michael Data Solutions">
-    <meta property="twitter:description" content="Automated PII detection and Secure Cloud Auditing.">
-    <meta property="twitter:image" content="snapshot.png">
-    <title>MDS - Protect Your Data</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+    <!-- Open Graph / LinkedIn (Homepage Specific) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://michaeldatasolutions.com/" />
+    <meta property="og:title" content="Michael Data Solutions | Custom Dashboards & Private AI Tools" />
+    <meta property="og:description" content="We build and manage live Streamlit dashboards and private internal AI tools for data-driven organizations. Complete technical management, no IT team needed." />
+    <meta property="og:image" content="https://michaeldatasolutions.com/og-image.png" />
+
+    <!-- Twitter / X -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://michaeldatasolutions.com/" />
+    <meta property="twitter:title" content="Michael Data Solutions | Custom Dashboards & Private AI Tools" />
+    <meta property="twitter:description" content="We build and manage live Streamlit dashboards and private internal AI tools for data-driven organizations." />
+    <meta property="twitter:image" content="https://michaeldatasolutions.com/og-image.png" />
+
+    <!-- Fonts & Icons -->
     <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-          tailwind.config = {
-            darkMode: "class",
+
+    <script>
+        tailwind.config = {
             theme: {
-              extend: {
-                colors: {
-                        "primary-container": "#7f00ff",
-                        "secondary": "#d5baff",
-                        "surface": "#0a0a0a",
-                        "surface-container": "#111111",
-                },
-                fontFamily: {
-                        "headline": ["Space Grotesk"],
-                        "body": ["Inter"]
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            900: '#312e81',
+                        }
+                    }
                 }
-              },
-            },
-          }
-    
+            }
+        }
     </script>
-    <style>
 
-        html{
-          scroll-behavior: smooth;
-        }
-        :root { --mouse-x: 50%; --mouse-y: 50%; }
-        
-        #hero-section {
-            position: relative;
-            background-color: #0a0a0a;
-            overflow: hidden;
-        }
-
-        .cube-reveal-bg {
-            position: absolute;
-            inset: 0;
-            background-image: 
-                linear-gradient(30deg, #151515 12%, transparent 12.5%, transparent 87%, #151515 87.5%, #151515),
-                linear-gradient(150deg, #151515 12%, transparent 12.5%, transparent 87%, #151515 87.5%, #151515),
-                linear-gradient(30deg, #151515 12%, transparent 12.5%, transparent 87%, #151515 87.5%, #151515),
-                linear-gradient(150deg, #151515 12%, transparent 12.5%, transparent 87%, #151515 87.5%, #151515),
-                linear-gradient(60deg, #1a1a1a 25%, transparent 25.5%, transparent 75%, #1a1a1a 75%, #1a1a1a),
-                linear-gradient(60deg, #1a1a1a 25%, transparent 25.5%, transparent 75%, #1a1a1a 75%, #1a1a1a);
-            background-size: 80px 140px;
-            background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
-            opacity: 0;
-            transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            mask-image: radial-gradient(circle 300px at var(--mouse-x) var(--mouse-y), black 0%, transparent 100%);
-            -webkit-mask-image: radial-gradient(circle 300px at var(--mouse-x) var(--mouse-y), black 0%, transparent 100%);
-            z-index: 1;
-        }
-
-        #hero-section:hover .cube-reveal-bg { opacity: 1; }
-        .content-layer { position: relative; z-index: 10; pointer-events: none; }
-        .content-layer button, .content-layer a { pointer-events: auto; }
-        .diag-grid { background-image: radial-gradient(#2a2a2a 1px, transparent 1px); background-size: 30px 30px; }
-        .video-card { transition: all 0.3s ease; border-left: 4px solid transparent; }
-        .video-card:hover { border-left-color: #7f00ff; background: rgba(127, 0, 255, 0.05); }
-
-        /* Ambient Background Glows - Brightened */
-        .glow-wrapper {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-       
-
-        .spot-1 { top: -15%; right: -5%; }
-        .spot-2 { bottom: -10%; left: -5%; }
-
-        /* Initial Page Load Animation */
-        .load-hidden {
-            opacity: 0;
-            transform: translateY(20px);
-            filter: blur(12px);
-            transition: opacity 1.5s ease-out, transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 1.5s ease-out;
-        }
-
-        .load-visible {
-            opacity: 1;
-            transform: translateY(0);
-            filter: blur(0);
-        }
-
-        /* Scroll Reveal Animation */
-        .reveal {
-            opacity: 0;
-            transform: scale(0.96) translateY(50px);
-            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        /* Deepened background for the section */
-.bg-deep-surface {
-    background-color: #050505;
-}
-
-/* Base Card Styling */
-.hover-lift {
-    position: relative;
-    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
-    background-color: #0a0a0a;
-}
-
-/* The Corner Glow Effect */
-.corner {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border: 2px solid transparent;
-    opacity: 0;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    pointer-events: none;
-}
-
-/* Individual Corner Positions */
-.t-l { top: 0; left: 0; border-top-color: #7f00ff; border-left-color: #7f00ff; }
-.t-r { top: 0; right: 0; border-top-color: #7f00ff; border-right-color: #7f00ff; }
-.b-l { bottom: 0; left: 0; border-bottom-color: #7f00ff; border-left-color: #7f00ff; }
-.b-r { bottom: 0; right: 0; border-bottom-color: #7f00ff; border-right-color: #7f00ff; }
-
-/* Hover States: Glow and Shift Outward */
-.group:hover .corner {
-    opacity: 1;
-    filter: drop-shadow(0 0 8px #7f00ff);
-}
-
-.group:hover .t-l { transform: translate(-8px, -8px); }
-.group:hover .t-r { transform: translate(8px, -8px); }
-.group:hover .b-l { transform: translate(-8px, 8px); }
-.group:hover .b-r { transform: translate(8px, 8px); }
-
-/* Card lift and subtle brighten */
-.group:hover.hover-lift {
-    background-color: #0f0f0f;
-    border-color: rgba(127, 0, 255, 0.2);
-    transform: translateY(-5px);
-}
-/* Add this to your <style> block */
-.bg-solid-black {
-    background-color: #050505 !important; /* A deep, solid black */
-    opacity: 1 !important;
-}
-/* Volumetric 3D Icon Aesthetic */
-.icon-container {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-/* The larger, volumetric background glow/shadow */
-.icon-background {
-    position: absolute;
-    font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 200, 'opsz' 48;
-    filter: blur(25px) opacity(0.5); /* Boosted blur and opacity for depth */
-    transform: scale(2.2); /* Make it much bigger */
-    z-index: -1;
-}
-
-/* The smaller, sharp, glossy focal icon */
-.icon-focal {
-    position: absolute;
-    font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 100, 'opsz' 40;
-    /* Simulate a glossy, rounded plastic surface */
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.05) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: 
-        drop-shadow(0 2px 3px rgba(0,0,0,0.4)) /* Base Shadow */
-        drop-shadow(0 1px 1px rgba(255,255,255,0.2) inset); /* Glossy rim light hint */
-    z-index: 2;
-}
-
-/* Specific color definitions to match the glow aesthetic */
-.icon-purple { color: #8e24aa; } /* Volumetric deep purple */
-.icon-blue { color: #1e88e5; }   /* Volumetric deep blue */
-.icon-green { color: #43a047; }  /* Volumetric deep green */
-
-/* Standard Material Symbols config (for fallback/base styling) */
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-    </style>
+    <!-- Master Business Schema Markup -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Michael Data Solutions",
+      "image": "https://michaeldatasolutions.com/favicon.png",
+      "url": "https://michaeldatasolutions.com",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "US"
+      },
+      "description": "We build and manage live Streamlit dashboards and private internal AI tools for recovery, rehab, and data-driven organizations.",
+      "serviceType": [
+        "Custom Streamlit Dashboards",
+        "Private Internal AI Tools Deployment",
+        "Managed Data Pipelines"
+      ]
+    }
+    </script>
 </head>
-<body class="bg-surface text-white font-body selection:bg-primary-container">
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
 
-<div class="glow-wrapper">
-    <div class="glow-spot spot-1"></div>
-    <div class="glow-spot spot-2"></div>
-</div>
-
-<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-8 py-6 bg-black/80 backdrop-blur-lg border-b border-white/5 font-headline">
-    <div class="text-xl font-bold tracking-tighter uppercase">Michael Data Solutions</div>
-    <div class="hidden md:flex items-center space-x-10 text-xs font-bold uppercase tracking-widest">
-        <a class="hover:text-primary-container transition-colors" href="#problem">The Problem</a>
-        <a class="hover:text-primary-container transition-colors" href="#engines">Solutions</a>
-        <a class="hover:text-primary-container transition-colors" href="#blog">Blogs</a>
-        <a class="hover:text-primary-container transition-colors" href="/aboutme.html">About Me</a>
-
-
-                <a class="hover:text-primary-container transition-colors" href="#contact">Contact</a>
-
-
-        <a href="https://calendar.app.google/XSphPGqrE8v8MSAW7" class="bg-primary-container text-white px-6 py-2 hover:scale-105 transition-transform">Book Meeting</a>
-    </div>
-</nav>
-
-<main>
-    <section id="hero-section" class="relative min-h-screen flex flex-col items-center justify-center pt-20 overflow-hidden text-center px-6">
-        <div class="cube-reveal-bg"></div>
-        <div class="absolute inset-0 diag-grid opacity-40"></div>
-        
-        <div class="content-layer max-w-5xl load-hidden" id="hero-content">
-            <div class="mb-6 flex items-center justify-center gap-4">
-                <span class="h-[1px] w-8 bg-primary-container"></span>
-                <span class="font-headline text-primary-container uppercase tracking-[0.4em] text-[10px] font-bold">Zero-Data-Footprint Architecture</span>
-                <span class="h-[1px] w-8 bg-primary-container"></span>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <img class="material-symbols-outlined text-brand-600 font-bold text-3xl" src="/favicon.png"></img>
+                <span class="font-display font-bold text-xl tracking-tight text-brand-900">Michael Data Solutions</span>
             </div>
-            <h1 class="font-headline text-5xl md:text-8xl font-bold leading-[0.9] tracking-tighter mb-8">
-                High-Integrity Data <br/>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-secondary">Infrastructure</span>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-semibold tracking-wide">
+                <a class="text-slate-600 hover:text-brand-600 transition-colors" href="#services">Services</a>
+                <a class="text-slate-600 hover:text-brand-600 transition-colors" href="#proof">Our Track Record</a>
+                <a class="text-slate-600 hover:text-brand-600 transition-colors" href="#workflow">How It Works</a>
+                <a class="text-slate-600 hover:text-brand-600 transition-colors" href="/pricing.html">Pricing</a>
+                <a class="bg-brand-600 text-white px-5 py-2.5 rounded-lg hover:bg-brand-700 transition-all shadow-sm shadow-brand-500/10" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ18CC3WAF1b-7LFcKPkPY34h7UFFqmjFzhSRP01EEM8xpjy5LCfkVyS21M-F6-_BBQUI5iMofYZ">Book Free Call</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative overflow-hidden bg-white pt-24 pb-20 border-b border-slate-100">
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-50 text-brand-700 mb-6 border border-brand-100">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-500 animate-pulse"></span> Now serving organizations across the US
+            </span>
+            <h1 class="font-display text-4xl md:text-6xl font-bold tracking-tight text-slate-900 mb-6 leading-tight">
+                We build live dashboards and AI tools for your organization — <span class="text-brand-600">and manage them for you.</span>
             </h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-3xl mx-auto mb-12 leading-relaxed">
-                Secure tools designed to protect your sensitive data. With our Zero-Footprint Architecture, your information stays hidden. <span class="text-white">Prevent data liabilities-Start accessing it securely.</span>
+            <p class="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed">
+                No spreadsheets. No manual reports. No IT team needed on your end. We handle everything.
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://calendar.app.google/XSphPGqrE8v8MSAW7" class="bg-primary-container px-10 py-5 font-bold uppercase tracking-widest text-xs hover:brightness-125 transition-all">Schedule Technical Audit</a>
-                <a href="/webinars.html" class="inline-block border border-white/20 px-10 py-5 font-bold uppercase tracking-widest text-xs hover:bg-white hover:text-black transition-all">
-                Join Free Webinars
-                </a>    
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ18CC3WAF1b-7LFcKPkPY34h7UFFqmjFzhSRP01EEM8xpjy5LCfkVyS21M-F6-_BBQUI5iMofYZ" class="w-full sm:w-auto px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl shadow-lg shadow-brand-600/10 transition-all flex items-center justify-center gap-2">
+                    Book a free 20-minute call <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
         </div>
-        </div>
-    </section>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-60"></div>
+    </header>
 
-<section id="problem" class="py-32 bg-surface-container border-y border-white/5">
-        <div class="container mx-auto px-8 max-w-6xl load-visible">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                <div>
-                    <h2 class="font-headline text-4xl md:text-5xl font-bold uppercase tracking-tighter mb-6 leading-tight">Your Data is a Liability <br/><span class="text-primary-container">Until It’s Protected.</span></h2>
-                    <p class="text-on-surface-variant mb-8 text-lg leading-relaxed">Most companies move sensitive info (PII) through "leaky" pipes. If that data hits an AI model or a third-party app unencrypted, you are liable for the breach.</p>
+    <!-- Services Section -->
+    <section id="services" class="py-24 max-w-6xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4">Here is exactly what we do</h2>
+            <p class="text-slate-600">We design, deploy, and maintain custom solutions tailored directly to your workflow.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Service 1 -->
+            <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:border-brand-200 transition-all group">
+                <div class="w-12 h-12 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-600 group-hover:text-white transition-all">
+                    <span class="material-symbols-outlined">dashboard</span>
                 </div>
-                <div class="grid grid-cols-1 gap-6">
-                    <div class="p-6 border-l-2 border-primary-container bg-white/5 hover:bg-white/10 transition-colors">
-                        <h4 class="font-bold text-sm uppercase tracking-widest mb-2">The Compliance Gap</h4>
-                        <p class="text-xs text-on-surface-variant">Does your data meet HIPAA or GDPR standards the moment it leaves your server? We enforce compliance logic at the packet level so your data remains "blind" to unauthorized observers from server to destination.</p>
-                    </div>
-                    <div class="p-6 border-l-2 border-primary-container bg-white/5 hover:bg-white/10 transition-colors">
-                        <h4 class="font-bold text-sm uppercase tracking-widest mb-2">The Integration Wall</h4>
-                        <p class="text-xs text-on-surface-variant">Are legacy databases preventing you from using modern AI tools? We build bridges that transform raw data into AI-ready assets without compromising your firewall.</p>
-                    </div>
+                <h3 class="font-display text-2xl font-bold text-slate-900 mb-3">Live Streamlit Dashboards</h3>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    We build a custom dashboard that shows your team exactly what they need to see—client progress, operational outcomes, and performance metrics updated in real time. We host it, maintain it, and fix anything that breaks. You just use it.
+                </p>
+                <ul class="space-y-3 border-t border-slate-100 pt-6">
+                    <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                        <span class="material-symbols-outlined text-brand-600 text-lg font-bold">check</span> Built around your data and exact workflow
+                    </li>
+                    <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                        <span class="material-symbols-outlined text-brand-600 text-lg font-bold">check</span> Replaces hours of manual spreadsheet reporting
+                    </li>
+                    <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                        <span class="material-symbols-outlined text-brand-600 text-lg font-bold">check</span> Complete, ongoing monthly support included
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Service 2 -->
+            <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:border-brand-200 transition-all group">
+                <div class="w-12 h-12 bg-brand-50 rounded-xl flex items-center justify-center text-brand-600 mb-6 group-hover:bg-brand-600 group-hover:text-white transition-all">
+                    <span class="material-symbols-outlined">psychology</span>
                 </div>
+                <h3 class="font-display text-2xl font-bold text-slate-900 mb-3">Private AI Tools for Your Team</h3>
+                <p class="text-slate-600 mb-6 leading-relaxed">
+                    We build internal AI assistants your staff can safely use daily for documentation, reporting, or querying data securely. Everything runs directly on your own secure cloud infrastructure. Your data never leaves your servers.
+                </p>
+                <ul class="space-y-3 border-t border-slate-100 pt-6">
+                    <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                        <span class="material-symbols-outlined text-brand-600 text-lg font-bold">check</span> Secure AI chat built for your organization only
+                    </li>
+                    <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                        <span class="material-symbols-outlined text-brand-600 text-lg font-bold">check</span> Absolute data sovereignty—data stays on your servers
+                    </li>
+                    <li class="flex items-start gap-2.5 text-sm text-slate-700">
+                        <span class="material-symbols-outlined text-brand-600 text-lg font-bold">check</span> Zero third-party training or data leaks
+                    </li>
+                </ul>
             </div>
         </div>
     </section>
-  <section id="engines" class="py-32 bg-solid-black overflow-hidden">
-    <div class="container mx-auto px-8 max-w-7xl reveal">
-        <div class="mb-20 text-center">
-            <h2 class="font-headline text-4xl font-bold uppercase tracking-tighter mb-4 text-white">The Solution Menu</h2>
-            <p class="text-gray-500 uppercase tracking-widest text-[10px] font-bold">Proprietary Infrastructure Modules</p>
-        </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            
-            <div class="group hover-lift p-10 border border-white/5 relative">
-                <div class="corner t-l"></div>
-                <div class="corner t-r"></div>
-                <div class="corner b-l"></div>
-                <div class="corner b-r"></div>
-
-                <div class="mb-10 flex justify-between items-start">
-                    <div class="p-4 bg-primary-container/10 text-primary-container">
-                        <span class="material-symbols-outlined text-4xl">visibility_off</span>
-                    </div>
-                    <span class="font-mono text-[10px] opacity-30">MOD_01</span>
-                </div>
-                <h3 class="font-headline text-2xl font-bold mb-4">The Ghost Gateway</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6">Stop sending unencrypted customer data to third-party AI models. We redact PII (Private Identity Information) at the edge, keeping you compliant without slowing down dev cycles.</p>
-                <span class="text-[10px] font-bold text-primary-container tracking-[0.2em] uppercase">Redact PII at the Edge</span>
-            </div>
-
-            <div class="group hover-lift p-10 border border-white/5 relative">
-                <div class="corner t-l"></div>
-                <div class="corner t-r"></div>
-                <div class="corner b-l"></div>
-                <div class="corner b-r"></div>
-
-                <div class="mb-10 flex justify-between items-start">
-                    <div class="p-4 bg-primary-container/10 text-primary-container">
-                        <span class="material-symbols-outlined text-4xl">swap_calls</span>
-                    </div>
-                    <span class="font-mono text-[10px] opacity-30">MOD_02</span>
-                </div>
-                <h3 class="font-headline text-2xl font-bold mb-4">The Air Bridge</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6">A secure, "one-way" tunnel that moves data from your old office servers to the modern Cloud.Your data stays encrypted and "resumes" automatically if the connection drops.</p>
-                <span class="text-[10px] font-bold text-primary-container tracking-[0.2em] uppercase">Secure Legacy Integration</span>
-            </div>
-
-            <div class="group hover-lift p-10 border border-white/5 relative">
-                <div class="corner t-l"></div>
-                <div class="corner t-r"></div>
-                <div class="corner b-l"></div>
-                <div class="corner b-r"></div>
-
-                <div class="mb-10 flex justify-between items-start">
-                    <div class="p-4 bg-primary-container/10 text-primary-container">
-                        <span class="material-symbols-outlined text-4xl">admin_panel_settings</span>
-                    </div>
-                    <span class="font-mono text-[10px] opacity-30">MOD_03</span>
-                </div>
-                <h3 class="font-headline text-2xl font-bold mb-4">PII-Sentry</h3>
-                <p class="text-gray-400 text-sm leading-relaxed mb-6">Automated infrastructure audits that track data access across cloud, local and other ecosystems, generating real-time logs for compliance audits.</p>
-                <span class="text-[10px] font-bold text-primary-container tracking-[0.2em] uppercase">Automated Compliance Audits</span>
-            </div>
-
-        </div>
-    </div>
-</section>
-
- <section id="lab" class="py-32 bg-black/40 border-y border-white/5 relative z-10">
-        <div class="container mx-auto px-8 max-w-7xl">
-            <div class="mb-12">
-                <h2 class="font-headline text-3xl font-bold uppercase tracking-tighter">The Data Engineering Lab</h2>
-                <div class="h-1 w-12 bg-primary-container mt-4"></div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <div class="lg:col-span-8">
-                    <div class="relative aspect-video bg-surface-container border border-white/10 group overflow-hidden">
-                        <iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/CIZN2cV9mQI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                    </div>
-                    <div class="mt-6">
-                        <h3 class="text-2xl font-bold font-headline">Introducing Solutions To Secure Your Data</h3>
-                        <p class="text-gray-500 text-sm mt-2 uppercase tracking-widest">Internal Demonstration // Quick Overview</p>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-4 flex flex-col gap-4">
-                    <a href="https://www.loom.com/share/cb9997f8a575415c98f68e87aefa93cd" target="_blank" class="video-card p-5 bg-surface-container border border-white/5 cursor-pointer">
-                        <span class="text-[9px] text-primary-container font-bold uppercase mb-2 block tracking-widest">Tutorial 01</span>
-                        <h4 class="font-bold text-sm">Tracking Data Integrity With PII-Sentry</h4>
-                        <p class="text-gray-500 text-xs mt-2">Loom Video Demo</p>
-                    </a>
-                    <a href="https://www.loom.com/share/5da2ee90d5954054a61db7ff6f444080" target="_blank" class="video-card p-5 bg-surface-container border border-white/5 cursor-pointer">
-                        <span class="text-[9px] text-primary-container font-bold uppercase mb-2 block tracking-widest">Tutorial 02</span>
-                        <h4 class="font-bold text-sm">Encrypting Data For Third Party AI</h4>
-                        <p class="text-gray-500 text-xs mt-2">Loom Video Demo</p>
-                    </a>
-                    <a class="video-card p-5 bg-surface-container border border-white/5 cursor-pointer">
-                        <span class="text-[9px] text-primary-container font-bold uppercase mb-2 block tracking-widest">Tutorial 03</span>
-                        <h4 class="font-bold text-sm">Migrating Data Through Secure Pipelines</h4>
-                        <p class="text-gray-500 text-xs mt-2">Coming Soon...</p>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="method" class="py-32 bg-surface-container border-y border-white/5">
-        <div class="container mx-auto px-8 max-w-5xl text-center">
-            <h2 class="font-headline text-4xl font-bold uppercase mb-16">We Build the Engines. <span class="text-primary-container">You Drive the Insights.</span></h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-                <div class="relative z-10 flex flex-col items-center">
-                    <span class="material-symbols-outlined text-5xl mb-6 text-primary-container">troubleshoot</span>
-                    <h4 class="font-bold text-xl mb-2">Audit</h4>
-                    <p class="text-xs text-on-surface-variant leading-relaxed">Mapping your current data flow and identifying security bottlenecks. We find where your sensitive data is hiding.</p>
-                </div>
-                <div class="relative z-10 flex flex-col items-center">
-                    <span class="material-symbols-outlined text-5xl mb-6 text-primary-container">account_tree</span>
-                    <h4 class="font-bold text-xl mb-2">Architect</h4>
-                    <p class="text-xs text-on-surface-variant leading-relaxed">Designing "Zero-Data-Footprint" solutions where we never house your actual data. We write the code to secure those paths.</p>
-                </div>
-                <div class="relative z-10 flex flex-col items-center">
-                    <span class="material-symbols-outlined text-5xl mb-6 text-primary-container">terminal</span>
-                    <h4 class="font-bold text-xl mb-2">Deploy</h4>
-                    <p class="text-xs text-on-surface-variant leading-relaxed">We give your team a simple interface to manage it, implementing Python-based engines and Streamlit interfaces for your team.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-<section id="blog" class="py-32 bg-surface z-10 relative overflow-hidden">
-    <div class="container mx-auto px-8 max-w-7xl">
-        <div class="flex justify-between items-end mb-16 border-b border-white/5 pb-8 reveal">
-            <h2 class="font-headline text-3xl font-bold uppercase tracking-tighter text-white">Additional Resources</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-            
-            <article onclick="window.location.href='blog.html?id=0'" class="group cursor-pointer reveal">
-                <div class="mb-6 overflow-hidden aspect-[16/9] bg-surface-container border border-white/5 relative">
-                    <div class="w-full h-full bg-gradient-to-br from-primary-container/20 to-surface group-hover:scale-110 transition-transform duration-700"></div>
+    <!-- Expanded Section 1: Why Custom Dashboards Beat Spreadsheets & Power BI -->
+    <!-- Fixed Section 1: Why Custom Dashboards Beat Spreadsheets & Power BI -->
+    <section id="dashboards-value" class="bg-white py-20 border-t border-slate-200/60">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-7">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Operational Clarity</span>
+                    <h2 class="font-display text-3xl font-bold text-slate-900 mb-6">
+                        Live dashboards built for busy leadership — not tech experts
+                    </h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        Most organizations track their metrics using complex spreadsheets or rigid corporate tools like Power BI and Looker Studio. We do something entirely different. We build dead-simple, interactive visual screens that tell you exactly what you need to know in one glance—and we manage the whole thing for you.
+                    </p>
                     
-                    <div class="icon-container flex items-center justify-center">
-                        <span class="material-symbols-outlined icon-background text-[220px] icon-purple">troubleshoot</span>
-                        <span class="material-symbols-outlined icon-focal text-[64px]">troubleshoot</span>
+                    <!-- The Comparison Matrix -->
+                    <div class="space-y-4 my-8">
+                        <div class="flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-emerald-600 font-bold">check_circle</span>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Better than Spreadsheets</h4>
+                                <p class="text-base text-slate-600 leading-relaxed">No human errors, broken formulas, or waiting until Friday for manual updates. Your data updates automatically in the background while your team works.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-emerald-600 font-bold">check_circle</span>
+                            <div>
+                                <h4 class="font-bold text-slate-900 text-sm">Better than Power BI & Looker Studio</h4>
+                                <p class="text-base text-slate-500 leading-relaxed">Corporate tools require expensive licenses, months of staff training, and constant configuration. Our dashboards are tailor-made to display your exact operations—no software training required on your end.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <span class="text-[10px] text-gray-500 uppercase tracking-widest">April 2026 // Compliance</span>
-                <h3 class="text-xl font-bold mt-2 group-hover:text-primary-container transition-colors text-white">How to Audit Legacy Data for PII Without Crashing Production</h3>
-                <p class="text-gray-400 text-sm mt-4 leading-relaxed">Learn why standard PII tools crash at scale and how streaming inspection audits 8TB legacy monoliths.</p>
-            </article>
-            
-            <article onclick="window.location.href='blog.html?id=1'" class="group cursor-pointer reveal">
-                <div class="mb-6 overflow-hidden aspect-[16/9] bg-surface-container border border-white/5 relative">
-                    <div class="w-full h-full bg-gradient-to-br from-secondary/20 to-surface group-hover:scale-110 transition-transform duration-700"></div>
-                    
-                    <div class="icon-container flex items-center justify-center">
-                        <span class="material-symbols-outlined icon-background text-[220px] icon-blue">visibility_off</span>
-                        <span class="material-symbols-outlined icon-focal text-[64px]">visibility_off</span>
-                    </div>
-                </div>
-                <span class="text-[10px] text-gray-500 uppercase tracking-widest">March 2026 // Security</span>
-                <h3 class="text-xl font-bold mt-2 group-hover:text-primary-container transition-colors text-white">Why Your LLM Strategy is a Data Leak Waiting to Happen</h3>
-                <p class="text-gray-400 text-sm mt-4 leading-relaxed">Stop leaking data to third-party APIs by implementing a local gateway that masks PII.</p>
-            </article>
-
-            <article onclick="window.location.href='blog.html?id=2'" class="group cursor-pointer reveal">
-                <div class="mb-6 overflow-hidden aspect-[16/9] bg-surface-container border border-white/5 relative">
-                    <div class="w-full h-full bg-gradient-to-br from-gray-500/20 to-surface group-hover:scale-110 transition-transform duration-700"></div>
-                    
-                    <div class="icon-container flex items-center justify-center">
-                        <span class="material-symbols-outlined icon-background text-[220px] icon-green">cloud_sync</span>
-                        <span class="material-symbols-outlined icon-focal text-[64px]">cloud_sync</span>
-                    </div>
-                </div>
-                <span class="text-[10px] text-gray-500 uppercase tracking-widest">March 2026 // Automation</span>
-                <h3 class="text-xl font-bold mt-2 group-hover:text-primary-container transition-colors text-white">Rescuing 10TB Migrations from Connection Timeouts</h3>
-                <p class="text-gray-400 text-sm mt-4 leading-relaxed">Eliminate migration failures with Air Bridge logic that uses checksum-verified transfers.</p>
-            </article>
-        </div>
-    </div>
-</section>
-<section id="contact" class="py-20 md:py-40 bg-surface relative overflow-hidden">
-    <div class="container mx-auto px-4 md:px-8 max-w-4xl text-center reveal">
-        <div class="glass-panel p-8 md:p-16 border border-white/10 relative">
-            
-            <h2 class="font-headline text-3xl md:text-4xl font-bold mb-6 leading-tight">
-                Ready to Secure Your <br class="hidden md:block"/> Infrastructure?
-            </h2>
-            
-            <p class="text-gray-400 mb-10 text-sm md:text-base leading-relaxed">
-                Stop worrying about audits. Let’s look at your technical setup and find the data liability gaps.
-            </p>
-            
-            <form id="contact-form" class="flex flex-col md:flex-row gap-2 md:gap-0 max-w-md mx-auto">
-                <input id="user-email" name="email" 
-                    class="w-full flex-grow bg-white/5 border border-white/10 md:border-none p-5 text-xs md:text-sm font-mono focus:ring-2 focus:ring-primary-container outline-none" 
-                    placeholder="CORPORATE EMAIL ADDRESS" type="email" required/>
                 
-            <button type="submit" class="bg-primary-container px-10 py-5 font-bold uppercase tracking-widest text-xs hover:brightness-125 transition-all whitespace-nowrap">Contact Us</button>
-            </form>
-
-            <p class="mt-8 text-[9px] md:text-[10px] text-gray-500 uppercase tracking-[0.3em] leading-loose">
-                Direct Response // No Sales Reps
-            </p>
+                <!-- Clean, Aligned Sidebar List based on image_d511d5.png -->
+                <div class="md:col-span-5 bg-slate-50 p-8 rounded-2xl border border-slate-200/60">
+                    <h4 class="font-display font-bold text-xl text-brand-900 mb-6">What Leadership Sees Instantly:</h4>
+                    <ul class="space-y-6 text-sm text-slate-600">
+                        <li class="flex items-start gap-3">
+                            <span class="w-1.5 h-3 rounded bg-brand-500 mt-1.5 shrink-0"></span>
+                            <div class="space-y-1">
+                                <strong class="text-slate-900 block font-semibold">Client & Operational Progress:</strong>
+                                <p class="text-s text-slate-500 leading-relaxed">Know exact capacity and outcome trends in real-time.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-1.5 h-3 rounded bg-brand-500 mt-1.5 shrink-0"></span>
+                            <div class="space-y-1">
+                                <strong class="text-slate-900 block font-semibold">Audit-Ready Compliance:</strong>
+                                <p class="text-s text-slate-500 leading-relaxed">Visual graphs that satisfy state regulators and board metrics instantly.</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <span class="w-1.5 h-3 rounded bg-brand-500 mt-1.5 shrink-0"></span>
+                            <div class="space-y-1">
+                                <strong class="text-slate-900 block font-semibold">Staff Task Efficiency:</strong>
+                                <p class="text-s text-slate-500 leading-relaxed">See where operational bottlenecks are slowing down your daily workflow.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 z-[100] px-8 py-4 bg-primary-container text-white font-bold text-xs uppercase tracking-widest opacity-0 transition-all duration-500 pointer-events-none transform translate-y-4">
-    Request Received. We'll be in touch.
-</div>
-</main>
-<footer class="py-20 bg-black border-t border-white/5 px-12 text-center">
-    <div class="text-2xl font-bold font-headline mb-8 uppercase tracking-tighter">Michael Data Solutions</div>
-    <div class="flex justify-center gap-12 text-[10px] font-bold uppercase tracking-[0.3em] text-gray-500 mb-8">
-       
-        <a href="#" class="hover:text-white">info@michaeldatasolutions.com</a>
-       
-    </div>
-    <div class="text-[9px] text-gray-600 uppercase tracking-widest">© 2026 Engineered for Integrity. Designed for Privacy.</div>
-</footer>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    
-    // --- 1. Entry Animation (Hero) ---
-    const heroContent = document.getElementById('hero-content');
-    if (heroContent) {
-        setTimeout(() => heroContent.classList.add('load-visible'), 300);
-    }
-
-    // --- 2. Scroll Reveal Observer ---
-    const scrollObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('active');
-        });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-
-    document.querySelectorAll('.reveal').forEach(el => scrollObserver.observe(el));
-
-    // --- 3. Mouse Tracking Logic ---
-    const hero = document.getElementById('hero-section');
-    if (hero) {
-        hero.addEventListener('mousemove', e => {
-            const rect = hero.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            hero.style.setProperty('--mouse-x', `${x}%`);
-            hero.style.setProperty('--mouse-y', `${y}%`);
-        });
-    }
-
-    // --- 4. Form Submission & Toast ---
-    const form = document.getElementById('contact-form');
-    const toast = document.getElementById('toast');
-    // IMPORTANT: Ensure this URL is from your LATEST "Anyone" deployment
-    const GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxZvtskjN25bfbgF6lvAVq5vvMn7fOF7j-0TjDgeiZkKqFYq6nRVWWv7FDW-QDTrHJWWw/exec';
-
-    if (form && toast) {
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            
-            const emailInput = document.getElementById('user-email');
-            const btn = form.querySelector('button');
-            const originalBtnText = btn.innerText;
-
-            btn.disabled = true;
-            btn.innerText = "SENDING...";
-
-            // Use URLSearchParams to ensure the data is formatted correctly for Google
-            const formData = new URLSearchParams();
-            formData.append('email', emailInput.value);
-
-            fetch(GOOGLE_URL, {
-                method: 'POST',
-                mode: 'no-cors', 
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: formData
-            })
-            .then(() => {
-                // Show Toast
-                toast.classList.remove('opacity-0', 'translate-y-4', 'pointer-events-none');
-                toast.classList.add('opacity-100', 'translate-y-0');
+    <!-- Expanded Section 2: Secure AI Tools for Everyday Tasks -->
+    <section id="ai-value" class="bg-slate-50 py-20 border-t border-slate-200/60">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-5 order-last md:order-first bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm">
+                    <h4 class="font-display font-bold text-lg text-slate-900 mb-3 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-brand-600">shield_lock</span> 100% Data Protection
+                    </h4>
+                    <p class="text-m text-slate-600 mb-4 leading-relaxed">
+                        Public tools like ChatGPT use your information to train their public models—which is a massive compliance risk. 
+                    </p>
+                    <p class="text-xs text-slate-600 leading-relaxed font-medium bg-brand-50 p-3 rounded-lg text-brand-900 border border-brand-100">
+                        <strong>Our Guarantee:</strong> We lock your AI tools down so they run entirely inside your private company workspace. Your operational records, client histories, and business files never leave your servers, ensuring absolute privacy compliance.
+                    </p>
+                </div>
+                <div class="md:col-span-7">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Mundane Work Automated</span>
+                    <h2 class="font-display text-3xl font-bold text-slate-900 mb-6">
+                        Integrate secure AI to wipe out hours of administrative overhead
+                    </h2>
+                    <p class="text-slate-600 mb-6 leading-relaxed">
+                        We build conversational AI helpers specifically for your staff to eliminate repetitive, time-consuming tasks. Instead of hunting through messy file folders or typing out routine communications, your team can ask their private AI assistant to handle it securely.
+                    </p>
+                    
+                    <h4 class="font-bold text-slate-900 text-m mb-3">Practical ways your team will use it daily:</h4>
+                    <div class="grid sm:grid-cols-2 gap-4">
+                        <div class="bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                            <h5 class="text-s font-bold text-slate-900 mb-1 flex items-center gap-1.5"><span class="material-symbols-outlined text-brand-600 text-base">description</span> Instant Report Summaries</h5>
+                            <p class="text-[12px] text-slate-500 leading-relaxed">Drop a 50-page operational manual or state regulation file into the chat and ask: <em>"Summarize the key compliance changes affecting our staff."</em> Get answers in seconds.</p>
+                        </div>
+                        <div class="bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                            <h5 class="text-s font-bold text-slate-900 mb-1 flex items-center gap-1.5"><span class="material-symbols-outlined text-brand-600 text-base">mail</span> Automated Communications</h5>
+                            <p class="text-[12px] text-slate-500 leading-relaxed">Have the AI instantly draft professional parent updates, compliance notices, or complex internal staff emails based on simple bullet points.</p>
+                        </div>
+                        <div class="bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                            <h5 class="text-s font-bold text-slate-900 mb-1 flex items-center gap-1.5"><span class="material-symbols-outlined text-brand-600 text-base">bar_chart</span> Simple Data Inquiries</h5>
+                            <p class="text-[12px] text-slate-500 leading-relaxed">Instead of looking at massive columns of data, staff can type: <em>"Show me a list of all client cases that haven't been reviewed in the last 30 days."</em></p>
+                        </div>
+                        <div class="bg-white/60 p-4 rounded-xl border border-slate-200/40">
+                            <h5 class="text-s font-bold text-slate-900 mb-1 flex items-center gap-1.5"><span class="material-symbols-outlined text-brand-600 text-base">edit_document</span> Cleaning Up Raw Notes</h5>
+                            <p class="text-[12px] text-slate-500 leading-relaxed">Staff can paste their unorganized, fragmented daily meeting notes and have the AI structure them into clear, professional corporate documentation instantly.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Expanded Section 3: Live Dashboard & AI Walkthrough Video -->
+    <section id="video-walkthrough" class="bg-white py-20 border-t border-slate-200/60">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
                 
-                form.reset();
-                btn.disabled = false;
-                btn.innerText = originalBtnText;
+                <!-- Video Container Side (Responsive 16:9 Aspect Ratio) -->
+                <div class="md:col-span-6">
+                    <div class="relative w-full aspect-video rounded-2xl overflow-hidden shadow-lg border border-slate-200 bg-slate-900 group">
+                        <!-- REPLACE 'YOUR_YOUTUBE_VIDEO_ID' with your actual YouTube video link ID once uploaded -->
+                        <iframe 
+                            class="absolute top-0 left-0 w-full h-full" 
+                            src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID" 
+                            title="Custom Dashboard & AI Walkthrough for Recovery Organizations" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe >
+                    </div>
+                    <p class="text-[11px] text-slate-400 text-center mt-3 italic">
+                        Watch a quick 3-minute screen share of our live operational interface in action.
+                    </p>
+                </div>
 
-                setTimeout(() => {
-                    toast.classList.add('opacity-0', 'translate-y-4', 'pointer-events-none');
-                    toast.classList.remove('opacity-100', 'translate-y-0');
-                }, 4000);
-            })
-            .catch(err => {
-                console.error("Submission error:", err);
-                btn.disabled = false;
-                btn.innerText = "RETRY";
-            });
-        });
-    }
-});
+                <!-- Text Description Side -->
+                <div class="md:col-span-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">See It In Action</span>
+                    <h2 class="font-display text-3xl font-bold text-slate-900 mb-6">
+                        Take a look inside a fully managed data ecosystem
+                    </h2>
+                    <p class="text-slate-600 mb-6 text-s leading-relaxed">
+                        In this brief video walkthrough, we showcase a secure platform custom-built for an active organization. You will see how messy, disparate data sources are automatically funneled into a clean visual interface that any team member can use from day one.
+                    </p>
 
-    
+                    <div class="space-y-4">
+                        <div class="border-l-2 border-brand-200 pl-4">
+                            <h4 class="font-bold text-slate-900 text-sm mb-1">Real-Time Metric Tracking</h4>
+                            <p class="text-[14px] text-slate-500 leading-relaxed">
+                                See how easily leadership can monitor active case counts, overall capacity, compliance milestones, and operational outcomes without ever opening a spreadsheet.
+                            </p>
+                        </div>
+                        <div class="border-l-2 border-brand-500 pl-4">
+                            <h4 class="font-bold text-slate-900 text-sm mb-1">Smart AI Overlay Demonstration</h4>
+                            <p class="text-[14px] text-slate-500 leading-relaxed">
+                                Watch how we integrate an internal AI assistant directly alongside the charts. Staff can type natural questions directly underneath a graph—like <em>"Summarize why our admissions spiked last month"</em>—and receive an instant, text-based explanation derived from your secure internal records.
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-</script>
+            </div>
+        </div>
+    </section>
+    <!-- Expanded Section 4: The Spreadsheet & Presentation Hassle Solved -->
+    <section id="workflow-transformation" class="bg-slate-50 py-20 border-t border-slate-200/60">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Workflow Redesign</span>
+                <h2 class="font-display text-3xl font-bold text-slate-900">Stop wasting time preparing data for presentations</h2>
+                <p class="text-slate-600 mt-3 text-s">If your current process for reviewing data feels like a multi-step administrative chore, you are operating with a heavy manual overhead.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 items-stretch">
+                <!-- The Old Way -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/60 relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-rose-600 mb-4">
+                            <span class="material-symbols-outlined text-xl font-bold">cancel</span>
+                            <h4 class="font-display font-bold text-lg text-slate-900">The Old, Fragmented Way</h4>
+                        </div>
+                        <ul class="space-y-4 text-s text-slate-600">
+                            <li class="flex gap-2.5"><span class="text-rose-500 font-bold">1.</span> Log into data collections tools like Agolix, only to find their built-in analytics are too limited or rigid to show what you actually need.</li>
+                            <li class="flex gap-2.5"><span class="text-rose-500 font-bold">2.</span> Manually export raw data into cluttered, unorganized spreadsheets.</li>
+                            <li class="flex gap-2.5"><span class="text-rose-500 font-bold">3.</span> Waste time cleaning up messy file formatting, fixing broken cells, and manually generating raw charts.</li>
+                            <li class="flex gap-2.5"><span class="text-rose-500 font-bold">4.</span> Copy and paste those static graphs into presentation slides just so leadership can review them.</li>
+                        </ul>
+                    </div>
+                    <p class="text-[11px] text-rose-500 mt-6 bg-rose-50 p-3 rounded-lg font-medium">Result: A frustrating administrative hassle every single week.</p>
+                </div>
+
+                <!-- The New Way -->
+                <div class="bg-brand-900 text-white p-8 rounded-2xl border border-brand-950 shadow-md relative flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-2 text-emerald-400 mb-4">
+                            <span class="material-symbols-outlined text-xl font-bold">check_circle</span>
+                            <h4 class="font-display font-bold text-lg text-white">The Modern Managed Dashboard</h4>
+                        </div>
+                        <p class="text-xs text-brand-200 mb-4 leading-relaxed">
+                            We pipe your data continuously out of systems like Agolix, automatically clean the formatting, and build completely custom visual layouts matching your specific date ranges and parameters.
+                        </p>
+                        <ul class="space-y-3.5 text-s text-brand-100">
+                            <li class="flex gap-2.5 items-center"><span class="material-symbols-outlined text-emerald-400 text-sm">bolt</span> Zero manual export or spreadsheet manipulation needed.</li>
+                            <li class="flex gap-2.5 items-center"><span class="material-symbols-outlined text-emerald-400 text-sm">bolt</span> Custom-create the exact graphs your board or clinical team wants to track.</li>
+                            <li class="flex gap-2.5 items-center"><span class="material-symbols-outlined text-emerald-400 text-sm">bolt</span> Pull up your live web link during presentations to display dynamic data immediately.</li>
+                        </ul>
+                    </div>
+                    <p class="text-[11px] text-emerald-300 mt-6 bg-white/10 p-3 rounded-lg font-medium">Result: Complete operational transparency with zero manual effort.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Expanded Section 5: Private AI Security & Chat Storage -->
+    <section id="ai-security-trust" class="bg-white py-20 border-t border-slate-200/60">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Absolute Sovereignty</span>
+            <h2 class="font-display text-3xl font-bold text-slate-900 mb-6">Where is your company data actually going?</h2>
+            <p class="text-slate-600 max-w-2xl mx-auto mb-10 text-m leading-relaxed">
+                When your staff uses public AI tools like ChatGPT or Claude for research and analysis, your sensitive company logs are stored on third-party servers. If you delete those conversations to remain secure, you lose your team's valuable work. If you keep them, you have no control over where that data sits.
+            </p>
+
+           <div class="bg-slate-50 border border-slate-200 rounded-2xl p-8 text-left max-w-2xl mx-auto">
+                <h4 class="font-display font-bold text-xl text-slate-900 mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-brand-600 text-2xl">bookmark_heart</span>
+                    The Private Storage Solution
+                </h4>
+
+                <p class="text-base text-slate-600 leading-relaxed mb-6">
+                    We deploy a private operational environment that solves this compromise entirely. Your team gets the intelligence of advanced AI models with full data ownership:
+                </p>
+
+                <ul class="space-y-4 text-base text-slate-700">
+                    <li class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-brand-600 text-xl">verified</span>
+                    <span>
+                        <strong>Highest-Level Data Isolation:</strong> Your chats and analyses are securely saved inside your own isolated database. Third-party software companies cannot touch, read, or train on your data.
+                    </span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                    <span class="material-symbols-outlined text-brand-600 text-xl">verified</span>
+                    <span>
+                        <strong>Permanent, Compliant Access:</strong> Save your vital research, client summaries, and deep logs indefinitely without compromising compliance standards.
+                    </span>
+                    </li>
+                </ul>
+                </div>
+
+        </div>
+    </section>
+    <!-- Expanded Section 6: How Our Managed Partnership Works (The Retainer) -->
+    <section id="managed-partnership" class="bg-slate-50 py-20 border-t border-slate-200/60">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-12 items-center">
+                <div class="md:col-span-6">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Long-Term Reliability</span>
+                    <h2 class="font-display text-3xl font-bold text-slate-900 mb-6">
+                        You are not just buying software. You are hiring an on-call data team.
+                    </h2>
+                    <p class="text-slate-600 text-s leading-relaxed mb-4">
+                        Data connections fluctuate when external collection platforms update their systems. If you hire a typical web developer, they will build your dashboard, send an invoice, and leave you to figure it out when something disconnects. 
+                    </p>
+                    <p class="text-slate-600 text-s leading-relaxed font-medium text-brand-900">
+                        We do things differently. Through our structured monthly partnership plans, we take complete responsibility for your data ecosystem. If a connection breaks or a pipeline flags an error, you send a quick message and we jump on it immediately—fully resolving technical disruptions within 24 hours.
+                    </p>
+                </div>
+                
+                <!-- Retainer Tier Framework (No Dollar Values) -->
+                <div class="md:col-span-6 space-y-4">
+                    
+                    <!-- Standard Tier -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-bold text-s text-slate-900">Standard Management Plan</h4>
+                            <span class="text-[10px] bg-slate-100 text-slate-700 font-bold px-2 py-0.5 rounded">Core Support</span>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Perfect for stable organizations. Includes 24/7 server monitoring, background data pipeline cleaning, and rapid email support for system fixes. Any future additions or new chart views are billed transparently per request.
+                        </p>
+                    </div>
+                    
+                    <!-- Professional Tier -->
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-bold text-s text-slate-900">Growth Support Plan</h4>
+                            <span class="text-[10px] bg-brand-50 text-brand-700 font-bold px-2 py-0.5 rounded">Most Popular</span>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Designed for evolving clinical environments. Includes direct phone access for high-priority troubleshooting and covers the dynamic building of new graphs, data parameters, or custom tracking views at no additional cost.
+                        </p>
+                    </div>
+                    
+                    <!-- Enterprise Tier -->
+                    <div class="bg-white p-5 rounded-xl border-2 border-brand-500 shadow-sm relative">
+                        <div class="absolute -top-2.5 right-4 bg-brand-500 text-white text-[9px] uppercase tracking-wider font-bold px-2 py-0.5 rounded">Full Autonomy</div>
+                        <div class="flex justify-between items-center mb-1">
+                            <h4 class="font-bold text-s text-slate-900">All-Inclusive Enterprise Partner</h4>
+                            <span class="text-[10px] bg-brand-100 text-brand-800 font-bold px-2 py-0.5 rounded">Complete Department</span>
+                        </div>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            Our highest level of strategic partnership. We act completely as your internal data department. Enjoy zero boundaries on your growth: unlimited dashboard iterations, complex analytical integrations, custom structural changes, and scaling adjustments without ever seeing a single extra line item on an invoice.
+                        </p>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section id="proof" class="bg-white py-24 border-y border-slate-200/60">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="grid md:grid-cols-5 gap-12 items-center">
+                <div class="md:col-span-2">
+                    <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Real Work. Already Running.</span>
+                    <h2 class="font-display text-3xl font-bold text-slate-900 mb-4">Proven in high-stakes industries</h2>
+                    <p class="text-slate-600 leading-relaxed">
+                        We have been managing live dashboard infrastructure for organizations in the United States. It completely replaced hours of error-prone, manual weekly reporting.
+                    </p>
+                </div>
+                <div class="md:col-span-3 bg-slate-50 p-8 rounded-2xl border border-slate-100 relative">
+                    <span class="text-6xl font-serif text-brand-200 absolute top-2 left-4 select-none">“</span>
+                    <blockquote class="text-lg text-slate-700 italic mb-6 relative z-10 pl-4">
+                       I just wanted to take a moment to say how blown away I am by the dashboards and data visualizations you created. These comparative charts, trait analyses, and source integrations are absolutely incredible.
+                    </blockquote>
+                    <div class="flex items-center gap-3 pl-4">
+                        <div class="w-10 h-10 rounded-full bg-brand-600 flex items-center justify-center text-white font-bold text-sm">JR</div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-900">CEO & FOUNDER</p>
+                            <p class="text-xs text-slate-500">Dr. Roop — Trait Based Transformation | USA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How it Works -->
+    <section id="workflow" class="py-24 max-w-5xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="font-display text-3xl font-bold text-slate-900">How it works</h2>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-8 relative">
+            <div class="text-center">
+                <div class="w-12 h-12 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center font-display font-bold text-brand-600 mx-auto mb-4 text-lg">1</div>
+                <h4 class="font-bold text-lg mb-2">You book a call</h4>
+                <p class="text-sm text-slate-600 max-w-xs mx-auto">20 minutes. Tell us your biggest data tracking or reporting headache.</p>
+            </div>
+            <div class="text-center">
+                <div class="w-12 h-12 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center font-display font-bold text-brand-600 mx-auto mb-4 text-lg">2</div>
+                <h4 class="font-bold text-lg mb-2">We build it</h4>
+                <p class="text-sm text-slate-600 max-w-xs mx-auto">Custom architecture built to match your metrics. Ready within days.</p>
+            </div>
+            <div class="text-center">
+                <div class="w-12 h-12 rounded-full bg-brand-50 border border-brand-100 flex items-center justify-center font-display font-bold text-brand-600 mx-auto mb-4 text-lg">3</div>
+                <h4 class="font-bold text-lg mb-2">We manage it</h4>
+                <p class="text-sm text-slate-600 max-w-xs mx-auto">Updates, data pipelines, fixes, and server configurations. All handled 100% by us.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Call to Action -->
+    <section class="bg-brand-900 text-white py-20 relative overflow-hidden rounded-3xl max-w-6xl mx-auto mb-12 px-6">
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <h2 class="font-display text-3xl md:text-5xl font-bold mb-6">Let's solve your organization's data problem</h2>
+            <p class="text-brand-100 text-lg mb-8 max-w-xl mx-auto">
+                Book a free 20-minute call. Clear terms, no commitment. We will tell you exactly what we can build for your data layout.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 items-center">
+                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ18CC3WAF1b-7LFcKPkPY34h7UFFqmjFzhSRP01EEM8xpjy5LCfkVyS21M-F6-_BBQUI5iMofYZ" class="px-8 py-4 bg-white text-brand-900 font-bold rounded-xl hover:bg-brand-50 transition-all shadow-lg">
+                    Book a free call
+                </a>
+                <span class="text-sm text-brand-200">or reach directly via: <strong class="text-white">info@michaeldatasolutions.com</strong></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-white py-8">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between text-sm text-slate-500 gap-4">
+            <p>© 2026 Michael Data Solutions. All rights reserved.</p>
+            <p class="font-semibold text-slate-700">michaeldatasolutions.com</p>
+        </div>
+    </footer>
+
 </body>
 </html>
