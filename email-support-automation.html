@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Automated AI Email Support for Gmail | Michael Data Solutions</title>
+    <meta name="description" content="Custom-built AI email support engines powered by Claude API & RAG inside Google Workspace. Automate customer support tickets, eliminate inbox clutter, and protect sensitive data.">
+    <meta name="keywords" content="AI customer support email, Google Apps Script Claude API, RAG support bot, Gmail automation, email support workflow, custom customer support software">
+
+    <link rel="canonical" href="https://michaeldatasolutions.com/email-support-automation.html" />
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://michaeldatasolutions.com/email-support-automation.html" />
+    <meta property="og:title" content="Automated AI Email Support for Gmail | Michael Data Solutions" />
+    <meta property="og:description" content="Custom-built AI email support engines powered by Claude API & RAG inside Google Workspace. Automate customer support tickets, eliminate inbox clutter, and protect sensitive data." />
+    <meta property="og:image" content="https://michaeldatasolutions.com/og-image.png" />
+
+    <!-- Twitter / X -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://michaeldatasolutions.com/email-support-automation.html" />
+    <meta property="twitter:title" content="Automated AI Email Support for Gmail | Michael Data Solutions" />
+    <meta property="twitter:description" content="Resolve up to 80% of routine customer support tickets automatically using Claude API and RAG architecture." />
+    <meta property="twitter:image" content="https://michaeldatasolutions.com/og-image.png" />
+
+    <!-- Fonts & Icons -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'], display: ['Space Grotesk', 'sans-serif'] },
+                    colors: { brand: { 50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca', 800: '#3730a3', 900: '#312e81' } }
+                }
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemPage",
+      "name": "Automated AI Email Support",
+      "description": "Custom-built AI email support engines powered by AI & RAG inside your workspace. Automate customer support tickets, eliminate inbox clutter, and protect sensitive data.",
+      "url": "https://michaeldatasolutions.com/email-support-automation.html",
+      "mainEntity": {
+        "@type": "Product",
+        "name": "AI Email Support Automation",
+        "description": "A email-native, AI and RAG-powered support automation that resolves routine customer emails with human-paced replies and strict sensitive-data guardrails."
+      }
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <img class="material-symbols-outlined text-brand-600 font-bold text-3xl" src="/favicon.png"></img>
+                <a href="/" class="font-display font-bold text-xl tracking-tight text-brand-900">Michael Data Solutions</a>
+            </div>
+            <div class="flex items-center space-x-8 text-sm font-semibold tracking-wide">
+                <a class="hidden md:inline text-slate-600 hover:text-brand-600 transition-colors" href="/#services">Services</a>
+                <a class="hidden md:inline text-slate-600 hover:text-brand-600 transition-colors" href="/#case-studies">Case Studies</a>
+                <a class="hidden md:inline text-slate-600 hover:text-brand-600 transition-colors" href="/pricing.html">Pricing</a>
+                <a class="bg-brand-600 text-white px-5 py-2.5 rounded-lg hover:bg-brand-700 transition-all shadow-sm shadow-brand-500/10" href="#book-call">Book Free Discovery Call</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative overflow-hidden bg-gradient-to-br from-brand-700 via-brand-800 to-brand-900 pt-24 pb-24">
+        <!-- decorative glow orbs -->
+        <div class="absolute -top-32 -left-24 w-96 h-96 bg-brand-400/30 rounded-full blur-3xl"></div>
+        <div class="absolute -bottom-32 -right-20 w-[28rem] h-[28rem] bg-brand-500/20 rounded-full blur-3xl"></div>
+        <div class="absolute top-10 right-1/4 w-64 h-64 bg-amber-400/10 rounded-full blur-3xl"></div>
+        <!-- faint grid overlay -->
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
+        <!-- floating accent dots -->
+        <div class="absolute top-24 left-[12%] w-2.5 h-2.5 rounded-full bg-amber-300/70 hidden md:block"></div>
+        <div class="absolute bottom-28 right-[15%] w-3 h-3 rounded-full bg-brand-300/60 hidden md:block"></div>
+        <div class="absolute top-1/2 left-[8%] w-1.5 h-1.5 rounded-full bg-white/40 hidden md:block"></div>
+
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/10 text-brand-100 mb-6 border border-white/15 uppercase tracking-widest backdrop-blur-sm">
+                Enterprise-Grade Email Automation
+            </span>
+            <h1 class="font-display text-4xl md:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
+                Turn Your Email Into An <span class="text-amber-300">Automated, Human-like</span> Customer Support Engine.
+            </h1>
+            <p class="text-lg md:text-xl text-brand-100 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Stop paying thousands every month for bloated helpdesk applications. We automate emails with AI that resolve routine support emails in under 5 minutes.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ18CC3WAF1b-7LFcKPkPY34h7UFFqmjFzhSRP01EEM8xpjy5LCfkVyS21M-F6-_BBQUI5iMofYZ" class="w-full sm:w-auto px-8 py-4 bg-white hover:bg-brand-50 text-brand-900 font-semibold rounded-xl shadow-lg shadow-brand-950/20 transition-all flex items-center justify-center gap-2">
+                    Schedule your 20-minute strategy call <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Core Benefits Grid -->
+    <section class="py-24 max-w-6xl mx-auto px-6">
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4">Why organizations are switching to native AI support</h2>
+            <p class="text-slate-600">Built specifically for teams struggling with inbox clutter, late-night ticket backlogs, and absurd software pricing.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:border-brand-200 transition-all">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-800 text-white flex items-center justify-center mb-5 shadow-lg shadow-brand-900/10">
+                    <span class="material-symbols-outlined text-2xl">timer</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900 mb-3">Natural 3-5 Minute Delay</h3>
+                <p class="text-slate-600 leading-relaxed">Instant auto-replies look robotic and get ignored. Our workflow introduces a calculated 3-to-5 minute response timer, delivering accurate, human-feeling support that resolves issues while maintaining recipient trust.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:border-brand-200 transition-all">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-800 text-white flex items-center justify-center mb-5 shadow-lg shadow-brand-900/10">
+                    <span class="material-symbols-outlined text-2xl">psychology</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900 mb-3">Dynamic RAG Knowledge</h3>
+                <p class="text-slate-600 leading-relaxed">We connect the Claude API to your custom documentation, user manuals, and past FAQs. The AI continuously references your precise business context to answer nuanced questions accurately without guessing.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:border-brand-200 transition-all">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-800 text-white flex items-center justify-center mb-5 shadow-lg shadow-brand-900/10">
+                    <span class="material-symbols-outlined text-2xl">shield_lock</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900 mb-3">Bulletproof Guardrail Routing</h3>
+                <p class="text-slate-600 leading-relaxed">The AI handles routine inquiries only. If a message involves custom pricing requests, private health records (PHI), sensitive personal data, or high-touch account disputes, it automatically hands off the email to a human staff member.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:border-brand-200 transition-all">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-800 text-white flex items-center justify-center mb-5 shadow-lg shadow-brand-900/10">
+                    <span class="material-symbols-outlined text-2xl">public</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900 mb-3">24/7 Global Coverage</h3>
+                <p class="text-slate-600 leading-relaxed">Provide instantaneous support across every time zone without hiring overnight shifts. Your offshore clients and late-night customer queries get resolved immediately while your team sleeps.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:border-brand-200 transition-all">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-800 text-white flex items-center justify-center mb-5 shadow-lg shadow-brand-900/10">
+                    <span class="material-symbols-outlined text-2xl">mark_email_read</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900 mb-3">Drastically Lower Inbox Clutter</h3>
+                <p class="text-slate-600 leading-relaxed">Eliminate 70% to 80% of repetitive incoming messages. Your support team wakes up to an inbox containing only critical issues that genuinely require human judgment and attention.</p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl border border-slate-200/80 shadow-sm hover:border-brand-200 transition-all">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-500 to-brand-800 text-white flex items-center justify-center mb-5 shadow-lg shadow-brand-900/10">
+                    <span class="material-symbols-outlined text-2xl">bolt</span>
+                </div>
+                <h3 class="font-display text-xl font-bold text-slate-900 mb-3">Zero Third-Party SaaS Markups</h3>
+                <p class="text-slate-600 leading-relaxed">Traditional helpdesks charge per seat and per resolution. By connecting Google Apps Script directly to the API, you pay raw compute costs — reducing thousands in software overhead down to a few dollars of usage per month.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Use Cases -->
+    <section class="bg-slate-50 py-24 border-t border-slate-200/60">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Who This Works Best For</span>
+                <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900 mb-4">Built for industries where a slow reply costs you the deal</h2>
+                <p class="text-slate-600">A few examples of where this pays for itself almost immediately.</p>
+            </div>
+
+            <div class="flex flex-col divide-y divide-slate-200">
+                <!-- Real Estate -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 py-10 first:pt-0 last:pb-0">
+                    <div class="shrink-0 w-40 h-40 md:w-44 md:h-44 rounded-3xl bg-gradient-to-br from-brand-500 to-brand-800 flex items-center justify-center shadow-lg shadow-brand-900/10">
+                        <svg viewBox="0 0 120 120" class="w-24 h-24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="28" y="55" width="56" height="42" rx="6" fill="#ffffff"/>
+                            <path d="M20 58 L56 28 L92 58 Z" fill="#fbbf24"/>
+                            <rect x="48" y="72" width="16" height="25" rx="2" fill="#4338ca"/>
+                            <circle cx="72" cy="78" r="7" fill="#c7d2fe"/>
+                            <path d="M78 20 h28 a6 6 0 0 1 6 6 v14 a6 6 0 0 1 -6 6 h-6 l-6 8 v-8 h-16 a6 6 0 0 1 -6 -6 v-14 a6 6 0 0 1 6 -6 z" fill="#ffffff"/>
+                            <circle cx="86" cy="33" r="2.2" fill="#4f46e5"/>
+                            <circle cx="94" cy="33" r="2.2" fill="#4f46e5"/>
+                            <circle cx="102" cy="33" r="2.2" fill="#4f46e5"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Real Estate</span>
+                        <h3 class="font-display text-2xl font-bold text-slate-900 mb-3">Never let a lead go cold after hours</h3>
+                        <p class="text-slate-600 leading-relaxed mb-5">
+                            Buyer inquiries close at dramatically higher rates when answered immediately. The catch? Most buyers browse after hours, and by the time an agent replies the next day, the lead is already cold. An automated, human-paced assistant answers specific property questions instantly, keeps buyers warm, and books showings on your calendar overnight—all driven by a single property write-up you upload at listing.
+                        </p>
+                        <div class="inline-flex items-center gap-3 bg-brand-50 border border-brand-100 rounded-xl px-4 py-2.5">
+                            <span class="font-display text-3xl font-bold text-brand-700 leading-none">78%</span>
+                            <span class="text-xs text-brand-700 font-semibold leading-tight max-w-[160px] text-left">higher close rates when the first reply comes fast</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Connected Hardware & Event Tech -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 py-10 first:pt-0 last:pb-0">
+                    <div class="shrink-0 w-40 h-40 md:w-44 md:h-44 rounded-3xl bg-gradient-to-br from-brand-500 to-brand-800 flex items-center justify-center shadow-lg shadow-brand-900/10">
+                        <svg viewBox="0 0 120 120" class="w-24 h-24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="60" cy="90" rx="30" ry="7" fill="#312e81" opacity="0.35"/>
+                            <rect x="38" y="52" width="44" height="34" rx="17" fill="#ffffff"/>
+                            <circle cx="60" cy="69" r="6" fill="#fbbf24"/>
+                            <path d="M46 44 a20 20 0 0 1 28 0" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M38 34 a34 34 0 0 1 44 0" stroke="#ffffff" stroke-width="4" stroke-linecap="round" opacity="0.55"/>
+                            <circle cx="88" cy="56" r="5" fill="#34d399"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Connected Hardware & Event Tech</span>
+                        <h3 class="font-display text-2xl font-bold text-slate-900 mb-3">Support that doesn't sleep, wherever your product ships</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            IoT devices, swim-tracking equipment, sports software, and event platforms demand round-the-clock support. Often support is required mid-event, right when a breakdown occurs at the worst possible moment. Slow responses during these critical windows destroy brand trust. Feed the system your user manuals and FAQs, and it will guide customers step-by-step through live troubleshooting, resolving issues in real time regardless of time zone.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Non-Profit Organizations -->
+                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12 py-10 first:pt-0 last:pb-0">
+                    <div class="shrink-0 w-40 h-40 md:w-44 md:h-44 rounded-3xl bg-gradient-to-br from-brand-500 to-brand-800 flex items-center justify-center shadow-lg shadow-brand-900/10">
+                        <svg viewBox="0 0 120 120" class="w-24 h-24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 78 q20 -18 40 0 q20 -18 40 0 l-6 14 q-16 14 -34 14 q-18 0 -34 -14 z" fill="#ffffff"/>
+                            <path d="M60 42 c6 -10 22 -6 22 6 c0 14 -22 26 -22 26 s-22 -12 -22 -26 c0 -12 16 -16 22 -6 z" fill="#fb7185"/>
+                            <circle cx="28" cy="30" r="3" fill="#fbbf24"/>
+                            <circle cx="93" cy="34" r="4" fill="#fbbf24"/>
+                            <circle cx="86" cy="18" r="2" fill="#ffffff"/>
+                        </svg>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <span class="text-xs font-bold uppercase tracking-widest text-brand-600 block mb-2">Non-Profit Organizations</span>
+                        <h3 class="font-display text-2xl font-bold text-slate-900 mb-3">Stay responsive without leaving the field</h3>
+                        <p class="text-slate-600 leading-relaxed">
+                           Your time belongs in the field doing the work, not stuck at a desk clearing an inbox. When prospective partners or supporters reach out, inquiries often sit for days while you are on-site. Provide the system a simple running log of your recent projects and impact, and it handles inquiries on your behalf—keeping supporters informed and engaged while you focus on the mission.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Data Curation Section -->
+    <section class="bg-slate-50 py-20 border-t border-slate-200/60">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-white border border-slate-200 rounded-2xl p-8 md:p-10">
+                <h3 class="font-display font-bold text-2xl text-slate-900 mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-brand-600 text-2xl">bookmark_heart</span>
+                    Don't have clean documentation? We build it for you.
+                </h3>
+                <p class="text-slate-600 leading-relaxed mb-6">
+                    An AI support bot is only as good as the context it draws from. If your team doesn't have updated user manuals or organized FAQs, our data pipeline handles the heavy lifting:
+                </p>
+                <ul class="grid sm:grid-cols-2 gap-4 text-sm text-slate-700">
+                    <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-brand-600 text-lg">check_circle</span> Parse years of historical Gmail threads to identify recurring support scenarios</li>
+                    <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-brand-600 text-lg">check_circle</span> Extract common resolution patterns automatically using custom scripts</li>
+                    <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-brand-600 text-lg">check_circle</span> Clean, structure, and store a permanent, audit-ready knowledge repository</li>
+                    <li class="flex items-start gap-2.5"><span class="material-symbols-outlined text-brand-600 text-lg">check_circle</span> Ingest PDFs, Word files, internal SOPs, or public web documentation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SaaS vs MDS Comparison Table -->
+    <section class="bg-white py-24 border-t border-slate-200/60">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="font-display text-3xl md:text-4xl font-bold text-slate-900">Traditional helpdesk SaaS vs. MDS custom AI automation</h2>
+            </div>
+            <div class="overflow-x-auto rounded-2xl border border-slate-200">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50">
+                            <th class="p-4 text-sm font-bold uppercase tracking-wide text-brand-600 border-b border-slate-200">Feature</th>
+                            <th class="p-4 text-sm font-bold uppercase tracking-wide text-brand-600 border-b border-slate-200">Traditional Helpdesk SaaS</th>
+                            <th class="p-4 text-sm font-bold uppercase tracking-wide text-brand-600 border-b border-slate-200">MDS Custom Gmail + Claude Engine</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm text-slate-700">
+                        <tr>
+                            <td class="p-4 border-b border-slate-100 font-semibold text-slate-900">Monthly Cost</td>
+                            <td class="p-4 border-b border-slate-100 text-slate-500">$1,500 – $5,000+ per month</td>
+                            <td class="p-4 border-b border-slate-100">Raw API usage (pennies per resolution)</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b border-slate-100 font-semibold text-slate-900">Setup & Hosting</td>
+                            <td class="p-4 border-b border-slate-100 text-slate-500">Complex third-party portals & staff training</td>
+                            <td class="p-4 border-b border-slate-100">Fully managed; runs natively inside your Gmail</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b border-slate-100 font-semibold text-slate-900">Response Delay</td>
+                            <td class="p-4 border-b border-slate-100 text-slate-500">Instant canned bot response OR hours waiting for human</td>
+                            <td class="p-4 border-b border-slate-100">Smart 3-5 min human-paced automated response</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 border-b border-slate-100 font-semibold text-slate-900">Sensitive Data Handling</td>
+                            <td class="p-4 border-b border-slate-100 text-slate-500">Risky automated replies on private topics</td>
+                            <td class="p-4 border-b border-slate-100">Strict guardrails route sensitive emails to humans</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4 font-semibold text-slate-900">Knowledge Source</td>
+                            <td class="p-4 text-slate-500">Manual entry into rigid helpdesk articles</td>
+                            <td class="p-4">RAG ingestion of your manuals, past emails & SOPs</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final Call to Action -->
+    <section id="book-call" class="bg-brand-900 text-white py-20 relative overflow-hidden rounded-3xl max-w-6xl mx-auto mb-12 px-6">
+        <div class="max-w-3xl mx-auto text-center relative z-10">
+            <h2 class="font-display text-3xl md:text-5xl font-bold mb-6">Ready to automate your inbox support?</h2>
+            <p class="text-brand-100 text-lg mb-8 max-w-xl mx-auto">
+                Book a free 20-minute strategy call. We will review your current email support volume, audit your existing documentation, and show you how we can deploy a custom solution tailored to your exact operational workflow.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 items-center">
+                <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ18CC3WAF1b-7LFcKPkPY34h7UFFqmjFzhSRP01EEM8xpjy5LCfkVyS21M-F6-_BBQUI5iMofYZ" class="px-8 py-4 bg-white text-brand-900 font-bold rounded-xl hover:bg-brand-50 transition-all shadow-lg">
+                    Book your discovery call
+                </a>
+                <span class="text-sm text-brand-200">or reach directly via: <strong class="text-white">info@michaeldatasolutions.com</strong></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-white py-8">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between text-sm text-slate-500 gap-4">
+            <p>© 2026 Michael Data Solutions. All rights reserved.</p>
+            <p class="font-semibold text-slate-700">michaeldatasolutions.com</p>
+        </div>
+    </footer>
+
+</body>
+</html>
