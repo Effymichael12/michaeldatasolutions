@@ -1,6 +1,14 @@
 // Caches the static app shell only — never the Apps Script API responses
 // (auth/session/automation state must always come from the network).
-var CACHE_NAME = "mds-automation-hub-v1";
+//
+// Bump this version string every time any SHELL_FILES content changes
+// (app.js, styles.css, index.html, etc.) — the fetch handler below is
+// cache-first, so a stale cache under the same name would otherwise keep
+// serving old file contents forever, even after a new deploy. Bumping it
+// makes the browser detect service-worker.js as changed, install a fresh
+// cache under the new name, and (via skipWaiting()/clients.claim() below)
+// take over immediately instead of waiting for every open tab to close.
+var CACHE_NAME = "mds-automation-hub-v2";
 var SHELL_FILES = [
   "./",
   "index.html",
