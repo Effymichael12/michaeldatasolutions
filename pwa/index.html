@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>MDS Automation Hub</title>
+<meta name="description" content="Turn Michael Data Solutions automations on and off." />
+<meta name="theme-color" content="#ffffff" />
+<meta name="robots" content="noindex, nofollow" />
+
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" href="icons/logo.png" />
+<link rel="apple-touch-icon" href="icons/logo.png" />
+
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ===================== EMAIL ENTRY ===================== -->
+<section id="screen-login" class="screen active" aria-labelledby="login-heading">
+  <div class="card">
+    <img class="logo" src="icons/logo.png" alt="Michael Data Solutions" />
+    <h1 id="login-heading">Welcome to the Automation Hub</h1>
+    <p class="subtitle">Enter your work email and we'll send you a one-time code to sign in.</p>
+
+    <form id="login-form" novalidate>
+      <label class="field-label" for="login-email">Email address</label>
+      <input
+        type="email"
+        id="login-email"
+        name="email"
+        placeholder="you@company.com"
+        autocomplete="email"
+        inputmode="email"
+        required
+      />
+      <p class="field-error" id="login-error" role="alert"></p>
+      <button type="submit" class="btn btn-primary" id="login-submit">
+        <span class="btn-label">Send Verification Code</span>
+        <span class="btn-spinner" hidden></span>
+      </button>
+    </form>
+
+    <p class="trust-note">🔒 Your code expires in 60 seconds and is only ever sent to your own inbox.</p>
+  </div>
+</section>
+
+<!-- ===================== CODE ENTRY ===================== -->
+<section id="screen-verify" class="screen" aria-labelledby="verify-heading">
+  <div class="card">
+    <button type="button" class="btn-back" id="verify-back">&larr; Back</button>
+    <img class="logo" src="icons/logo.png" alt="Michael Data Solutions" />
+    <h1 id="verify-heading">Enter your code</h1>
+    <p class="subtitle">
+      We sent a 6-digit code to <strong id="verify-email"></strong>
+      &nbsp;&middot;&nbsp;<button type="button" class="link-btn" id="verify-change-email">Change</button>
+    </p>
+
+    <form id="verify-form" novalidate>
+      <div class="otp-inputs" id="otp-inputs">
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="0" autocomplete="one-time-code" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="1" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="2" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="3" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="4" />
+        <input type="text" inputmode="numeric" maxlength="1" class="otp-box" data-index="5" />
+      </div>
+
+      <p class="countdown" id="verify-countdown">Code expires in <span id="countdown-seconds">60</span>s</p>
+      <p class="field-error" id="verify-error" role="alert"></p>
+
+      <button type="submit" class="btn btn-primary" id="verify-submit">
+        <span class="btn-label">Verify &amp; Continue</span>
+        <span class="btn-spinner" hidden></span>
+      </button>
+      <button type="button" class="btn btn-secondary" id="verify-resend" disabled>Resend Code</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== DASHBOARD ===================== -->
+<section id="screen-dashboard" class="screen" aria-labelledby="dashboard-heading">
+  <header class="dashboard-header">
+    <div class="dashboard-header-inner">
+      <img class="logo logo-small" src="icons/logo.png" alt="Michael Data Solutions" />
+      <div class="dashboard-header-text">
+        <h1 id="dashboard-heading">Automation Hub</h1>
+        <p class="dashboard-user" id="dashboard-user"></p>
+      </div>
+      <button type="button" class="link-btn" id="dashboard-signout">Sign out</button>
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <p class="field-error" id="dashboard-error" role="alert"></p>
+
+    <div id="dashboard-loading" class="loading-state">
+      <span class="btn-spinner spinner-dark" aria-hidden="true"></span>
+      Loading your automations&hellip;
+    </div>
+
+    <div id="dashboard-empty" class="empty-state" hidden>
+      No automations are assigned to your account yet — contact Michael Data Solutions to get set up.
+    </div>
+
+    <ul id="automation-list" class="automation-list" hidden></ul>
+  </main>
+</section>
+
+<!-- ===================== END-DATE PROMPT (shown when turning an automation ON) ===================== -->
+<div id="enddate-modal" class="modal-overlay" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="enddate-heading">
+    <h2 id="enddate-heading">Run until when?</h2>
+    <p class="subtitle" id="enddate-automation-name"></p>
+
+    <label class="field-label" for="enddate-input">End date (optional)</label>
+    <input type="date" id="enddate-input" />
+    <p class="field-hint">Leave blank to run until you turn it off yourself.</p>
+    <p class="field-error" id="enddate-error" role="alert"></p>
+
+    <div class="modal-actions">
+      <button type="button" class="btn btn-secondary" id="enddate-cancel">Cancel</button>
+      <button type="button" class="btn btn-primary" id="enddate-confirm">
+        <span class="btn-label">Turn On</span>
+        <span class="btn-spinner" hidden></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SESSION EXPIRED MODAL ===================== -->
+<div id="session-expired-modal" class="modal-overlay" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="expired-heading">
+    <img class="logo" src="icons/logo.png" alt="Michael Data Solutions" />
+    <h2 id="expired-heading">Session Expired</h2>
+    <p class="subtitle">Your 7-day access has ended. Request a new code to keep managing your automations.</p>
+    <p class="field-error" id="expired-error" role="alert"></p>
+
+    <button type="button" class="btn btn-primary" id="expired-request-code">
+      <span class="btn-label">Request New Login Code</span>
+      <span class="btn-spinner" hidden></span>
+    </button>
+    <button type="button" class="btn btn-secondary" id="expired-signout">Sign Out</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
