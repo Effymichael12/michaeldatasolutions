@@ -3,7 +3,7 @@
 // Paste the deployed pwa_control_backend.gs web app URL here (Deploy > New
 // deployment > Web app > copy the /exec URL). Everything in this file talks
 // to that single endpoint.
-var API_BASE_URL = "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE";
+var API_BASE_URL = "https://script.google.com/macros/s/AKfycby08KU3XA1es4MlpdDJYOf8yj8jHKUlUmz-17QN4_UEmAf5sDwnGfg_CEdTeNnWGvAR/exec";
 
 // Must match OTP_EXPIRY_MINUTES in pwa_control_backend.gs (currently 1
 // minute) — only used to drive the on-screen countdown, the backend is the
